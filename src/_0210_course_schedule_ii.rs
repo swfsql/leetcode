@@ -34,7 +34,7 @@ impl Solution {
             acc
         });
 
-        let mut res = Vec::new();
+        let mut res = Vec::with_capacity(n);
         let mut added = HashSet::<usize>::new();
         // for a depedency tree, no children may depend on it's
         // parent/grandparent/etc..

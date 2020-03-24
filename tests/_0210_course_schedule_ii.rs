@@ -1,12 +1,12 @@
-use leetcode::_0210::*;
+use leetcode::_0210_course_schedule_ii::*;
 
 #[test]
-fn _0210_0() {
+fn _0210_course_schedule_ii_0() {
     assert_eq!(Solution::find_order(2, vec![vec![1, 0]]), vec![0, 1]);
 }
 
 #[test]
-fn _0210_1() {
+fn _0210_course_schedule_ii_1() {
     assert_eq!(
         Solution::find_order(4, vec![vec![1, 0], vec![2, 0], vec![3, 1], vec![3, 2]]),
         vec![0, 1, 2, 3]
@@ -14,7 +14,7 @@ fn _0210_1() {
 }
 
 #[test]
-fn _0210_2() {
+fn _0210_course_schedule_ii_2() {
     assert_eq!(
         Solution::find_order(2, vec![vec![0, 1], vec![1, 0]]),
         vec![]
@@ -22,7 +22,7 @@ fn _0210_2() {
 }
 
 #[test]
-fn _0210_3() {
+fn _0210_course_schedule_ii_3() {
     assert_eq!(
         Solution::find_order(4, vec![vec![0, 1], vec![3, 1], vec![1, 3], vec![3, 2]]),
         []
@@ -30,7 +30,7 @@ fn _0210_3() {
 }
 
 #[test]
-fn _0210_4() {
+fn _0210_course_schedule_ii_4() {
     assert_eq!(
         Solution::find_order(
             7,
