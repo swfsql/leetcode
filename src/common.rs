@@ -80,4 +80,13 @@ pub mod simple_tree_node {
             }
         }
     }
+
+    impl SimpleTreeNode {
+        pub fn children(&self) -> [Option<&SimpleTreeNode>; 2] {
+            [
+                self.left.as_ref().map(|c| c.as_ref()),
+                self.right.as_ref().map(|c| c.as_ref()),
+            ]
+        }
+    }
 }

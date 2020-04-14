@@ -19,12 +19,6 @@ pub fn _deepest_leaves_sum(root: Option<SimpleTreeNode>) -> i32 {
 }
 
 impl SimpleTreeNode {
-    pub fn children(&self) -> [Option<&SimpleTreeNode>; 2] {
-        [
-            self.left.as_ref().map(|c| c.as_ref()),
-            self.right.as_ref().map(|c| c.as_ref()),
-        ]
-    }
     pub fn deepest_leaves_sum(&self, last_depth: usize) -> (usize, i32) {
         self.children()
             .iter()
