@@ -1,6 +1,7 @@
 pub mod _0210_course_schedule_ii;
 pub mod _0771_jewels_and_stones;
 pub mod _1108_defanging_an_ip_address;
+pub mod _1281_subtract_the_product_and_sum_of_digits_of_an_integer;
 pub mod _1313_decompress_run_length_encoded_list;
 pub mod _1342_number_of_steps_to_reduce_a_number_to_zero;
 pub mod _1365_how_many_numbers_are_smaller_than_the_current_number;
