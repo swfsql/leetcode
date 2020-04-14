@@ -2,47 +2,9 @@
 //! https://leetcode.com/problems/deepest-leaves-sum/
 //!
 pub struct Solution;
-// Definition for a binary tree node.
-#[derive(Debug, PartialEq, Eq)]
-pub struct TreeNode {
-    pub val: i32,
-    pub left: Option<Rc<RefCell<TreeNode>>>,
-    pub right: Option<Rc<RefCell<TreeNode>>>,
-}
-
-impl TreeNode {
-    #[inline]
-    pub fn new(val: i32) -> Self {
-        TreeNode {
-            val,
-            left: None,
-            right: None,
-        }
-    }
-}
+pub use crate::common::simple_tree_node::{convert_children, SimpleTreeNode, TreeNode};
 use std::cell::RefCell;
 use std::rc::Rc;
-
-#[derive(Debug)]
-pub struct SimpleTreeNode {
-    pub val: i32,
-    pub left: Option<Box<SimpleTreeNode>>,
-    pub right: Option<Box<SimpleTreeNode>>,
-}
-
-fn convert_children(child: &Rc<RefCell<TreeNode>>) -> Box<SimpleTreeNode> {
-    Box::new((&*(*child).borrow()).into())
-}
-
-impl From<&TreeNode> for SimpleTreeNode {
-    fn from(node: &TreeNode) -> Self {
-        Self {
-            val: node.val,
-            left: node.left.as_ref().map(convert_children),
-            right: node.right.as_ref().map(convert_children),
-        }
-    }
-}
 
 impl Solution {
     pub fn deepest_leaves_sum(root: Option<Rc<RefCell<TreeNode>>>) -> i32 {

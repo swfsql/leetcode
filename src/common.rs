@@ -36,3 +36,48 @@ pub fn binary_to_bcd(n: u32) -> impl Clone + Iterator<Item = u8> {
         .rev()
         .skip_while(|d| *d == 0)
 }
+
+pub mod simple_tree_node {
+    use std::cell::RefCell;
+    use std::rc::Rc;
+
+    // Definition for a binary tree node.
+    #[derive(Debug, PartialEq, Eq)]
+    pub struct TreeNode {
+        pub val: i32,
+        pub left: Option<Rc<RefCell<TreeNode>>>,
+        pub right: Option<Rc<RefCell<TreeNode>>>,
+    }
+
+    impl TreeNode {
+        #[inline]
+        pub fn new(val: i32) -> Self {
+            TreeNode {
+                val,
+                left: None,
+                right: None,
+            }
+        }
+    }
+
+    #[derive(Debug, PartialEq, Eq, Clone)]
+    pub struct SimpleTreeNode {
+        pub val: i32,
+        pub left: Option<Box<SimpleTreeNode>>,
+        pub right: Option<Box<SimpleTreeNode>>,
+    }
+
+    pub fn convert_children(child: &Rc<RefCell<TreeNode>>) -> Box<SimpleTreeNode> {
+        Box::new((&*(*child).borrow()).into())
+    }
+
+    impl From<&TreeNode> for SimpleTreeNode {
+        fn from(node: &TreeNode) -> Self {
+            Self {
+                val: node.val,
+                left: node.left.as_ref().map(convert_children),
+                right: node.right.as_ref().map(convert_children),
+            }
+        }
+    }
+}
