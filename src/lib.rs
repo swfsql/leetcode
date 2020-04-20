@@ -2,6 +2,7 @@ pub mod _0210_course_schedule_ii;
 pub mod _0771_jewels_and_stones;
 pub mod _0807_max_increase_to_keep_city_skyline;
 pub mod _1108_defanging_an_ip_address;
+pub mod _1221_split_a_string_in_balanced_strings;
 pub mod _1281_subtract_the_product_and_sum_of_digits_of_an_integer;
 pub mod _1282_group_the_people_given_the_group_size_they_belong_to;
 pub mod _1295_find_numbers_with_even_number_of_digits;
