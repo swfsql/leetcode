@@ -11,6 +11,7 @@ pub mod _1313_decompress_run_length_encoded_list;
 pub mod _1315_sum_of_nodes_with_even_valued_grandparent;
 pub mod _1342_number_of_steps_to_reduce_a_number_to_zero;
 pub mod _1365_how_many_numbers_are_smaller_than_the_current_number;
+pub mod _1389_create_target_array_in_the_given_order;
 pub mod _1409_queries_on_a_permutation_with_key;
 pub mod common;
 pub mod template;
