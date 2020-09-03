@@ -57,19 +57,12 @@ impl<'s> Walker<'s> {
     /// and a single item from the patterns.
     pub fn skip(&mut self, n: usize) {
         self.chars = &self.chars[n..];
-
-        // this step is necessary for lifetime reasons
-        // https://stackoverflow.com/questions/61223234
-        let pats_ = std::mem::replace(&mut self.pats, &mut []);
-        // split the head out (and throw it away)
-        let (_head, tail) = pats_.split_at(1);
-        // the, from now on, we'll only deal with the tail
-        self.pats = tail;
+        self.pats = &self.pats[1..];
     }
 
     /// Creates a new Walker based on a previous one,
     /// while also applying some skipping.
-    pub fn with_skip(&mut self, n: usize) -> Walker<'_> {
+    pub fn with_skip(&self, n: usize) -> Walker<'_> {
         let chars: &'_ _ = &self.chars[n..];
         let pats: &'_ _ = &self.pats[1..];
         Walker { chars, pats }
