@@ -1,6 +1,16 @@
 //! # Sum of Nodes with Even-Valued Grandparent
-//! https://leetcode.com/problems/sum-of-nodes-with-even-valued-grandparent/
 //!
+//! [![src]][srcurl] [![Tests]][testsurl] [![Doc]][docurl] [![Problem]][problemurl]
+//!
+//! [src]: https://img.shields.io/badge/source-swfsql/leetcode-8DA0CB?style=for-the-badge&labelColor=555555&logo=github
+//! [srcurl]: https://github.com/swfsql/leetcode/blob/master/src/_1315_sum_of_nodes_with_even_valued_grandparent.rs
+//! [Tests]: https://img.shields.io/badge/tests-555555?style=for-the-badge&labelColor=555555&logoColor=white
+//! [testsurl]: https://github.com/swfsql/leetcode/blob/master/tests/_1315_sum_of_nodes_with_even_valued_grandparent.rs
+//! [doc]: https://img.shields.io/badge/docs-555555?style=for-the-badge&labelColor=555555&logoColor=white
+//! [docurl]: https://swfsql.github.io/leetcode/doc/leetcode/_1315_sum_of_nodes_with_even_valued_grandparent/index.html
+//! [Problem]: https://img.shields.io/badge/problem-555555?style=for-the-badge&labelColor=555555&logoColor=white
+//! [problemurl]: https://leetcode.com/problems/sum-of-nodes-with-even-valued-grandparent/
+
 pub struct Solution;
 pub use crate::common::simple_tree_node::{convert_children, SimpleTreeNode, TreeNode};
 use std::cell::RefCell;

@@ -8,6 +8,8 @@ fn _0044_wildcard_matching_0() {
     assert_eq!(Solution::_is_match("adceb", "a*b"), true);
     assert_eq!(Solution::_is_match("acdcb", "a*c?b"), false);
     //
+    assert_eq!(Solution::_is_match("aaxxxxbc", "aa*?bc"), true);
+    assert_eq!(Solution::_is_match("aaxxxxba", "aa*?bc"), false);
     assert_eq!(Solution::_is_match("", ""), true);
     assert_eq!(Solution::_is_match("", "*"), true);
     assert_eq!(Solution::_is_match("", "******"), true);

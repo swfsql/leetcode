@@ -1,6 +1,16 @@
 //! # Wildcard Matching
-//! https://leetcode.com/problems/wildcard-matching/
 //!
+//! [![src]][srcurl] [![Tests]][testsurl] [![Doc]][docurl] [![Problem]][problemurl]
+//!
+//! [src]: https://img.shields.io/badge/source-swfsql/leetcode-8DA0CB?style=for-the-badge&labelColor=555555&logo=github
+//! [srcurl]: https://github.com/swfsql/leetcode/blob/master/src/_0044_wildcard_matching.rs
+//! [Tests]: https://img.shields.io/badge/tests-555555?style=for-the-badge&labelColor=555555&logoColor=white
+//! [testsurl]: https://github.com/swfsql/leetcode/blob/master/tests/_0044_wildcard_matching.rs
+//! [doc]: https://img.shields.io/badge/docs-555555?style=for-the-badge&labelColor=555555&logoColor=white
+//! [docurl]: https://swfsql.github.io/leetcode/doc/leetcode/_0044_wildcard_matching/index.html
+//! [Problem]: https://img.shields.io/badge/problem-555555?style=for-the-badge&labelColor=555555&logoColor=white
+//! [problemurl]: https://leetcode.com/problems/wildcard-matching/
+
 pub struct Solution;
 
 impl Solution {
@@ -157,5 +167,39 @@ pub fn _is_match(s: &str, p: &str) -> bool {
         chars: chars.as_ref(),
         pats: pats.as_ref(),
     };
+
+    // let a = aa();
+    // a.poll();
+
     walker.any(|m| m == true)
+}
+
+async fn aa() -> bool {
+    true
+}
+
+use std::cell::RefCell;
+use std::future::Future;
+
+use std::pin::Pin;
+use std::task::{Context, Poll};
+
+async fn foo() -> u32 {
+    3
+}
+
+async fn square() -> u32 {
+    let a = foo().await;
+    let b = foo().await;
+    a * b
+}
+
+pub fn xx(cx: &mut Context<'_>) -> u32 {
+    let mut f = square();
+    let mut f = unsafe { Pin::new_unchecked(&mut f) };
+    loop {
+        if let Poll::Ready(x) = f.as_mut().poll(cx) {
+            break x;
+        }
+    }
 }
