@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["_group_the_people","Idiomatic entry point."]],"struct":[["Solution",""]]});

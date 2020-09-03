@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["_num_jewels_in_stones","Idiomatic entry point."]],"struct":[["Solution",""]]});

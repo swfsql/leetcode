@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["_subtract_product_and_sum","Idiomatic entry point."]],"struct":[["Solution",""]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["_sum_even_grandparent","Idiomatic entry point."]],"struct":[["Solution",""]]});

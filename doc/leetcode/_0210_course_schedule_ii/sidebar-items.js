@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["_find_order","Idiomatic entry point."],["add_depedency","Add element n as an depedency"]],"struct":[["Solution",""]]});

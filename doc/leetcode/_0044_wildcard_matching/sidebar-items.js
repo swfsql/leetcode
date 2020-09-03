@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["_is_match","Idiomatic entry point."]],"struct":[["Solution",""],["Walker",""]]});
