@@ -13,6 +13,8 @@ impl Solution {
 }
 
 /// Represent all patterns.
+///
+/// Names based on [Substructural Type System](https://en.wikipedia.org/wiki/Substructural_type_system).
 #[derive(Debug, Clone)]
 enum Pat {
     /// `[a-z]`.
@@ -45,12 +47,12 @@ impl From<char> for Pat {
 }
 
 #[derive(Debug)]
-pub struct Walker<'s, 'p> {
+pub struct Walker<'s> {
     chars: &'s [char],
-    pats: &'p mut [Pat],
+    pats: &'s [Pat],
 }
 
-impl<'s, 'p> Walker<'s, 'p> {
+impl<'s> Walker<'s> {
     /// Used to skip items from the slices of chars
     /// and a single item from the patterns.
     pub fn skip(&mut self, n: usize) {
@@ -60,25 +62,16 @@ impl<'s, 'p> Walker<'s, 'p> {
         // https://stackoverflow.com/questions/61223234
         let pats_ = std::mem::replace(&mut self.pats, &mut []);
         // split the head out (and throw it away)
-        let (_head, tail) = pats_.split_at_mut(1);
+        let (_head, tail) = pats_.split_at(1);
         // the, from now on, we'll only deal with the tail
         self.pats = tail;
     }
 
-    /// Same as `skip`, except the string len is checked.
-    pub fn try_skip(&mut self, n: usize) -> Option<()> {
-        if self.chars.len() < n {
-            None
-        } else {
-            Some(self.skip(n))
-        }
-    }
-
     /// Creates a new Walker based on a previous one,
     /// while also applying some skipping.
-    pub fn with_skip(&mut self, n: usize) -> Walker<'_, '_> {
+    pub fn with_skip(&mut self, n: usize) -> Walker<'_> {
         let chars: &'_ _ = &self.chars[n..];
-        let pats: &'_ mut _ = &mut self.pats[1..];
+        let pats: &'_ _ = &self.pats[1..];
         Walker { chars, pats }
     }
 
@@ -111,20 +104,15 @@ impl<'s, 'p> Walker<'s, 'p> {
     }
 }
 
-impl<'s, 'p> Iterator for Walker<'s, 'p>
-where
-    Self: 'p,
-{
+impl<'s> Iterator for Walker<'s> {
     type Item = bool;
     fn next(&mut self) -> Option<Self::Item> {
         match self.pats {
             // no more patterns to test.
-            [] => {
-                return match self.is_empty() {
-                    false => None,
-                    true => Some(true),
-                };
-            }
+            [] => match self.is_empty() {
+                false => None,
+                true => Some(true),
+            },
             // `[a-z]`.
             // Consumes a *single specified* char.
             [Pat::LinearChar(c), ..] => match self.chars {
@@ -143,7 +131,7 @@ where
                 0 => None,
                 _n => {
                     self.skip(1);
-                    return Some(self.is_empty());
+                    Some(self.is_empty())
                 }
             },
 
