@@ -152,10 +152,10 @@ impl<'s> Iterator for Walker<'s> {
 /// Idiomatic entry point.
 pub fn _is_match(s: &str, p: &str) -> bool {
     let chars: Vec<char> = s.chars().collect();
-    let mut pats: Vec<Pat> = p.chars().map(Into::into).collect();
+    let pats: Vec<Pat> = p.chars().map(Into::into).collect();
     let mut walker = Walker {
         chars: chars.as_ref(),
-        pats: pats.as_mut(),
+        pats: pats.as_ref(),
     };
     walker.any(|m| m == true)
 }
