@@ -10,6 +10,8 @@
 //! [docurl]: https://swfsql.github.io/leetcode/doc/leetcode/_0044_wildcard_matching/index.html
 //! [Problem]: https://img.shields.io/badge/problem-555555?style=for-the-badge&labelColor=555555&logoColor=white
 //! [problemurl]: https://leetcode.com/problems/wildcard-matching/
+//!
+//! Based on [Lynss/solution](https://leetcode.com/problems/wildcard-matching/discuss/527138/rust-dp-solution).
 
 pub struct Solution;
 
@@ -182,7 +184,7 @@ impl<'s> Iterator for Walker<'s> {
 
 /// Idiomatic entry point.
 pub fn _is_match(s: &str, p: &str) -> bool {
-    let mut last_good: Vec<bool> = 
+    let last_good: Vec<bool> = 
         // starts with a single true value
         vec![true]
         .into_iter()
