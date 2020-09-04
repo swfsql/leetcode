@@ -58,148 +58,160 @@ impl From<char> for Pat {
 
 #[derive(Debug)]
 pub struct Walker<'s> {
+    last_good: Vec<bool>,
     chars: &'s [char],
     pats: &'s [Pat],
-}
-
-impl<'s> Walker<'s> {
-    /// Used to skip items from the slices of chars
-    /// and a single item from the patterns.
-    pub fn skip(&mut self, n: usize) {
-        self.chars = &self.chars[n..];
-        self.pats = &self.pats[1..];
-    }
-
-    /// Creates a new Walker based on a previous one,
-    /// while also applying some skipping.
-    pub fn with_skip(&self, n: usize) -> Walker<'_> {
-        let chars: &'_ _ = &self.chars[n..];
-        let pats: &'_ _ = &self.pats[1..];
-        Walker { chars, pats }
-    }
-
-    pub fn check_children(&mut self, range: impl Iterator<Item = usize>) -> Option<bool> {
-        // we don't know how many chars we need to skip,
-        // so we try all possibilities
-        // (skipping from 0, 1, 2, .., range-2, range-1, range)
-        for l in range {
-            // for each new spawned walker,
-            // each one skipping some amount of chars,
-            let mut w = self.with_skip(l);
-            // we see if this new walker is able to
-            // satisfy the remaining of the string on
-            // the remaining of the pattern
-            if w.any(|m| m == true) {
-                // if it is, this is sufficient for the
-                // parent walker to also be able to
-                return Some(true);
-            }
-        }
-        // if none of the spawned walkers were able to
-        // satisfy it's remaining string with it's
-        // remaining pattern,
-        // then the parent definitely also cannot
-        return None;
-    }
-
-    pub fn is_empty(&self) -> bool {
-        self.chars.is_empty() && self.pats.is_empty()
-    }
 }
 
 impl<'s> Iterator for Walker<'s> {
     type Item = bool;
     fn next(&mut self) -> Option<Self::Item> {
-        match self.pats {
-            // no more patterns to test.
-            [] => match self.is_empty() {
-                false => None,
-                true => Some(true),
-            },
-            // `[a-z]`.
-            // Consumes a *single specified* char.
-            [Pat::LinearChar(c), ..] => match self.chars {
-                [cc, ..] if cc == c => {
-                    self.skip(1);
-                    Some(self.is_empty())
+        match (self.chars.is_empty(), self.pats.is_empty()) {
+            (false, false) => {
+                // strings and pats not empty yet,
+                // (continue)
+            }
+            (false, true) => {
+                // strings not empty but patterns empty
+                // (no more patterns available)
+                return None;
+            }
+            (true, false) => {
+                // strings empty, patterns still not empty
+                return match *self.last_good.iter().last().unwrap() {
+                    // patterns already matched to the string
+                    true => Some(true),
+                    // pattern didn't match, and never will
+                    false => None,
+                };
+            }
+            (true, true) => {
+                // strings and patterns empty
+                // they always match
+                return Some(true);
+            }
+        };
+        let mut next_good = vec![false; self.pats.len() + 1];
+
+        let c = self.chars[0];
+
+        for (j, p) in self.pats.iter().enumerate() {
+            match p {
+                // `[a-z]`.
+                // Consumes a *single specified* char.
+                Pat::LinearChar(cc) => {
+                    // must advance the string slice (i-wise),
+                    // and also itself - the pattern slice (j-wise),
+                    // and also match the character.
+                    //
+                    // obs. advancing i-wise means
+                    // using self.last_good[_];
+                    // obs. advancing j-wise means using
+                    // _[j].
+                    next_good[j + 1] = self.last_good[j] && c == *cc;
                 }
-
-                // different char, or no more chars.
-                [] | [..] => None,
-            },
-
-            // `?`.
-            // Skips *any single* char.
-            [Pat::LinearSkip, ..] => match self.chars.len() {
-                0 => None,
-                _n => {
-                    self.skip(1);
-                    Some(self.is_empty())
+                // `?`.
+                // Skips *any single* char.
+                Pat::LinearSkip => {
+                    // must advance the string slice (i-wise),
+                    // and also itself - the pattern slice
+                    // (j-wise).
+                    //
+                    // obs. advancing i-wise means using
+                    // self.last_good[_];
+                    // obs. advancing j-wise means using
+                    // _[j].
+                    next_good[j + 1] = self.last_good[j]
                 }
-            },
+                Pat::AffineSkip => {
+                    // must advance the string slice (i-wise)
+                    // or advance itself - the pattern slice
+                    // (j-wise).
+                    // but it always must at least advance
+                    // itself.
+                    //
+                    // obs. advancing i-wise means using self.
+                    // last_good[_];
+                    // obs. advancing j-wise means using _[j].
+                    next_good[j + 1] = self.last_good[j] || next_good[j];
+                }
+                Pat::RelevantSkip => {
+                    // must advance the string slice (i-wise)
+                    // or ignore itself - the pattern slice
+                    // (j-wise).
+                    // but it always must at least advance
+                    // i-wise.
+                    //
+                    // obs. advancing i-wise menas using self.
+                    // last_good[_];
+                    // obs. advancing j-wise means using _[j].
+                    next_good[j + 1] = self.last_good[j] || self.last_good[j + 1];
+                }
+                Pat::NormalSkip => {
+                    // can ignore the strings by advancing the
+                    // string slice (i-wise),
+                    // or can be ignored by advancing itself, the
+                    // pattern slice (j-wise).
+                    //
+                    // obs. advancing i-wise menas using self.
+                    // last_good[_];
+                    // obs. advancing j-wise means using _[j].
+                    next_good[j + 1] = self.last_good[j + 1] || next_good[j];
+                }
+            }
+        }
 
-            // `!`.
-            // Skips *none* or *any single* char.
-            [Pat::AffineSkip, ..] => match self.chars.len() {
-                0 => self.check_children(0..=0),
-                _n => self.check_children(0..=1),
-            },
+        // moves the string (i-wise) forward
+        self.chars = &self.chars[1..];
+        // forgets the last_good,
+        // and only remembers next_good
+        self.last_good = next_good;
 
-            // `+`.
-            // Skips *any single* or *many arbitrary* chars.
-            [Pat::RelevantSkip, ..] => match self.chars.len() {
-                0 => None,
-                n => self.check_children(0..=n),
-            },
-
-            // `*`.
-            // Skips *none* or *any single* or *many arbitrary* chars.
-            [Pat::NormalSkip, ..] => self.check_children(0..=self.chars.len()),
+        // if string has been consumed
+        if self.chars.len() == 0 {
+            // may return true,
+            // if the patterns had matched the string
+            Some(*self.last_good.iter().last().unwrap())
+        } else {
+            // otherwise, there is some pattern remaining,
+            // so a true cannot be guaranteed yet
+            Some(false)
         }
     }
 }
 
 /// Idiomatic entry point.
 pub fn _is_match(s: &str, p: &str) -> bool {
+    let mut last_good: Vec<bool> = 
+        // starts with a single true value
+        vec![true]
+        .into_iter()
+        // chain with another vector
+        .chain(
+            // based on the pattern
+            p.chars()
+                .map(Pat::from)
+                // where some form of skips are also true
+                .map(|p| match p {
+                    Pat::NormalSkip => true,
+                    Pat::AffineSkip => true,
+                    _ => false,
+                })
+                // and those trues must be consecutive from the 
+                // beggining, otherwise they are falsified
+                .scan(true, |acc, b| {
+                    *acc = *acc && b;
+                    Some(*acc)
+                }),
+        )
+        .collect();
     let chars: Vec<char> = s.chars().collect();
     let pats: Vec<Pat> = p.chars().map(Into::into).collect();
     let mut walker = Walker {
+        last_good,
         chars: chars.as_ref(),
         pats: pats.as_ref(),
     };
 
-    // let a = aa();
-    // a.poll();
-
     walker.any(|m| m == true)
-}
-
-async fn aa() -> bool {
-    true
-}
-
-use std::cell::RefCell;
-use std::future::Future;
-
-use std::pin::Pin;
-use std::task::{Context, Poll};
-
-async fn foo() -> u32 {
-    3
-}
-
-async fn square() -> u32 {
-    let a = foo().await;
-    let b = foo().await;
-    a * b
-}
-
-pub fn xx(cx: &mut Context<'_>) -> u32 {
-    let mut f = square();
-    let mut f = unsafe { Pin::new_unchecked(&mut f) };
-    loop {
-        if let Poll::Ready(x) = f.as_mut().poll(cx) {
-            break x;
-        }
-    }
 }
