@@ -204,6 +204,18 @@
 <span id="203">203</span>
 <span id="204">204</span>
 <span id="205">205</span>
+<span id="206">206</span>
+<span id="207">207</span>
+<span id="208">208</span>
+<span id="209">209</span>
+<span id="210">210</span>
+<span id="211">211</span>
+<span id="212">212</span>
+<span id="213">213</span>
+<span id="214">214</span>
+<span id="215">215</span>
+<span id="216">216</span>
+<span id="217">217</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="doccomment">//! # Wildcard Matching</span>
 <span class="doccomment">//!</span>
@@ -265,150 +277,162 @@
 
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Walker</span><span class="op">&lt;</span><span class="lifetime">&#39;s</span><span class="op">&gt;</span> {
+    <span class="ident">last_good</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">bool</span><span class="op">&gt;</span>,
     <span class="ident">chars</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;s</span> [<span class="ident">char</span>],
     <span class="ident">pats</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;s</span> [<span class="ident">Pat</span>],
-}
-
-<span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;s</span><span class="op">&gt;</span> <span class="ident">Walker</span><span class="op">&lt;</span><span class="lifetime">&#39;s</span><span class="op">&gt;</span> {
-    <span class="doccomment">/// Used to skip items from the slices of chars</span>
-    <span class="doccomment">/// and a single item from the patterns.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">skip</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">n</span>: <span class="ident">usize</span>) {
-        <span class="self">self</span>.<span class="ident">chars</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">chars</span>[<span class="ident">n</span>..];
-        <span class="self">self</span>.<span class="ident">pats</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">pats</span>[<span class="number">1</span>..];
-    }
-
-    <span class="doccomment">/// Creates a new Walker based on a previous one,</span>
-    <span class="doccomment">/// while also applying some skipping.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">with_skip</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">n</span>: <span class="ident">usize</span>) <span class="op">-&gt;</span> <span class="ident">Walker</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span> {
-        <span class="kw">let</span> <span class="ident">chars</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;_</span> <span class="kw">_</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">chars</span>[<span class="ident">n</span>..];
-        <span class="kw">let</span> <span class="ident">pats</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;_</span> <span class="kw">_</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">pats</span>[<span class="number">1</span>..];
-        <span class="ident">Walker</span> { <span class="ident">chars</span>, <span class="ident">pats</span> }
-    }
-
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">check_children</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">range</span>: <span class="kw">impl</span> <span class="ident">Iterator</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> <span class="ident">usize</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">bool</span><span class="op">&gt;</span> {
-        <span class="comment">// we don&#39;t know how many chars we need to skip,</span>
-        <span class="comment">// so we try all possibilities</span>
-        <span class="comment">// (skipping from 0, 1, 2, .., range-2, range-1, range)</span>
-        <span class="kw">for</span> <span class="ident">l</span> <span class="kw">in</span> <span class="ident">range</span> {
-            <span class="comment">// for each new spawned walker,</span>
-            <span class="comment">// each one skipping some amount of chars,</span>
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">w</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">with_skip</span>(<span class="ident">l</span>);
-            <span class="comment">// we see if this new walker is able to</span>
-            <span class="comment">// satisfy the remaining of the string on</span>
-            <span class="comment">// the remaining of the pattern</span>
-            <span class="kw">if</span> <span class="ident">w</span>.<span class="ident">any</span>(<span class="op">|</span><span class="ident">m</span><span class="op">|</span> <span class="ident">m</span> <span class="op">==</span> <span class="bool-val">true</span>) {
-                <span class="comment">// if it is, this is sufficient for the</span>
-                <span class="comment">// parent walker to also be able to</span>
-                <span class="kw">return</span> <span class="prelude-val">Some</span>(<span class="bool-val">true</span>);
-            }
-        }
-        <span class="comment">// if none of the spawned walkers were able to</span>
-        <span class="comment">// satisfy it&#39;s remaining string with it&#39;s</span>
-        <span class="comment">// remaining pattern,</span>
-        <span class="comment">// then the parent definitely also cannot</span>
-        <span class="kw">return</span> <span class="prelude-val">None</span>;
-    }
-
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_empty</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">bool</span> {
-        <span class="self">self</span>.<span class="ident">chars</span>.<span class="ident">is_empty</span>() <span class="op">&amp;&amp;</span> <span class="self">self</span>.<span class="ident">pats</span>.<span class="ident">is_empty</span>()
-    }
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;s</span><span class="op">&gt;</span> <span class="ident">Iterator</span> <span class="kw">for</span> <span class="ident">Walker</span><span class="op">&lt;</span><span class="lifetime">&#39;s</span><span class="op">&gt;</span> {
     <span class="kw">type</span> <span class="ident">Item</span> <span class="op">=</span> <span class="ident">bool</span>;
     <span class="kw">fn</span> <span class="ident">next</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="self">Self</span>::<span class="ident">Item</span><span class="op">&gt;</span> {
-        <span class="kw">match</span> <span class="self">self</span>.<span class="ident">pats</span> {
-            <span class="comment">// no more patterns to test.</span>
-            [] <span class="op">=&gt;</span> <span class="kw">match</span> <span class="self">self</span>.<span class="ident">is_empty</span>() {
-                <span class="bool-val">false</span> <span class="op">=&gt;</span> <span class="prelude-val">None</span>,
-                <span class="bool-val">true</span> <span class="op">=&gt;</span> <span class="prelude-val">Some</span>(<span class="bool-val">true</span>),
-            },
-            <span class="comment">// `[a-z]`.</span>
-            <span class="comment">// Consumes a *single specified* char.</span>
-            [<span class="ident">Pat</span>::<span class="ident">LinearChar</span>(<span class="ident">c</span>), ..] <span class="op">=&gt;</span> <span class="kw">match</span> <span class="self">self</span>.<span class="ident">chars</span> {
-                [<span class="ident">cc</span>, ..] <span class="kw">if</span> <span class="ident">cc</span> <span class="op">==</span> <span class="ident">c</span> <span class="op">=&gt;</span> {
-                    <span class="self">self</span>.<span class="ident">skip</span>(<span class="number">1</span>);
-                    <span class="prelude-val">Some</span>(<span class="self">self</span>.<span class="ident">is_empty</span>())
+        <span class="kw">match</span> (<span class="self">self</span>.<span class="ident">chars</span>.<span class="ident">is_empty</span>(), <span class="self">self</span>.<span class="ident">pats</span>.<span class="ident">is_empty</span>()) {
+            (<span class="bool-val">false</span>, <span class="bool-val">false</span>) <span class="op">=&gt;</span> {
+                <span class="comment">// strings and pats not empty yet,</span>
+                <span class="comment">// (continue)</span>
+            }
+            (<span class="bool-val">false</span>, <span class="bool-val">true</span>) <span class="op">=&gt;</span> {
+                <span class="comment">// strings not empty but patterns empty</span>
+                <span class="comment">// (no more patterns available)</span>
+                <span class="kw">return</span> <span class="prelude-val">None</span>;
+            }
+            (<span class="bool-val">true</span>, <span class="bool-val">false</span>) <span class="op">=&gt;</span> {
+                <span class="comment">// strings empty, patterns still not empty</span>
+                <span class="kw">return</span> <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span>.<span class="ident">last_good</span>.<span class="ident">iter</span>().<span class="ident">last</span>().<span class="ident">unwrap</span>() {
+                    <span class="comment">// patterns already matched to the string</span>
+                    <span class="bool-val">true</span> <span class="op">=&gt;</span> <span class="prelude-val">Some</span>(<span class="bool-val">true</span>),
+                    <span class="comment">// pattern didn&#39;t match, and never will</span>
+                    <span class="bool-val">false</span> <span class="op">=&gt;</span> <span class="prelude-val">None</span>,
+                };
+            }
+            (<span class="bool-val">true</span>, <span class="bool-val">true</span>) <span class="op">=&gt;</span> {
+                <span class="comment">// strings and patterns empty</span>
+                <span class="comment">// they always match</span>
+                <span class="kw">return</span> <span class="prelude-val">Some</span>(<span class="bool-val">true</span>);
+            }
+        };
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">next_good</span> <span class="op">=</span> <span class="macro">vec</span><span class="macro">!</span>[<span class="bool-val">false</span>; <span class="self">self</span>.<span class="ident">pats</span>.<span class="ident">len</span>() <span class="op">+</span> <span class="number">1</span>];
+
+        <span class="kw">let</span> <span class="ident">c</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">chars</span>[<span class="number">0</span>];
+
+        <span class="kw">for</span> (<span class="ident">j</span>, <span class="ident">p</span>) <span class="kw">in</span> <span class="self">self</span>.<span class="ident">pats</span>.<span class="ident">iter</span>().<span class="ident">enumerate</span>() {
+            <span class="kw">match</span> <span class="ident">p</span> {
+                <span class="comment">// `[a-z]`.</span>
+                <span class="comment">// Consumes a *single specified* char.</span>
+                <span class="ident">Pat</span>::<span class="ident">LinearChar</span>(<span class="ident">cc</span>) <span class="op">=&gt;</span> {
+                    <span class="comment">// must advance the string slice (i-wise),</span>
+                    <span class="comment">// and also itself - the pattern slice (j-wise),</span>
+                    <span class="comment">// and also match the character.</span>
+                    <span class="comment">//</span>
+                    <span class="comment">// obs. advancing i-wise means</span>
+                    <span class="comment">// using self.last_good[_];</span>
+                    <span class="comment">// obs. advancing j-wise means using</span>
+                    <span class="comment">// _[j].</span>
+                    <span class="ident">next_good</span>[<span class="ident">j</span> <span class="op">+</span> <span class="number">1</span>] <span class="op">=</span> <span class="self">self</span>.<span class="ident">last_good</span>[<span class="ident">j</span>] <span class="op">&amp;&amp;</span> <span class="ident">c</span> <span class="op">==</span> <span class="kw-2">*</span><span class="ident">cc</span>;
                 }
-
-                <span class="comment">// different char, or no more chars.</span>
-                [] <span class="op">|</span> [..] <span class="op">=&gt;</span> <span class="prelude-val">None</span>,
-            },
-
-            <span class="comment">// `?`.</span>
-            <span class="comment">// Skips *any single* char.</span>
-            [<span class="ident">Pat</span>::<span class="ident">LinearSkip</span>, ..] <span class="op">=&gt;</span> <span class="kw">match</span> <span class="self">self</span>.<span class="ident">chars</span>.<span class="ident">len</span>() {
-                <span class="number">0</span> <span class="op">=&gt;</span> <span class="prelude-val">None</span>,
-                <span class="ident">_n</span> <span class="op">=&gt;</span> {
-                    <span class="self">self</span>.<span class="ident">skip</span>(<span class="number">1</span>);
-                    <span class="prelude-val">Some</span>(<span class="self">self</span>.<span class="ident">is_empty</span>())
+                <span class="comment">// `?`.</span>
+                <span class="comment">// Skips *any single* char.</span>
+                <span class="ident">Pat</span>::<span class="ident">LinearSkip</span> <span class="op">=&gt;</span> {
+                    <span class="comment">// must advance the string slice (i-wise),</span>
+                    <span class="comment">// and also itself - the pattern slice</span>
+                    <span class="comment">// (j-wise).</span>
+                    <span class="comment">//</span>
+                    <span class="comment">// obs. advancing i-wise means using</span>
+                    <span class="comment">// self.last_good[_];</span>
+                    <span class="comment">// obs. advancing j-wise means using</span>
+                    <span class="comment">// _[j].</span>
+                    <span class="ident">next_good</span>[<span class="ident">j</span> <span class="op">+</span> <span class="number">1</span>] <span class="op">=</span> <span class="self">self</span>.<span class="ident">last_good</span>[<span class="ident">j</span>]
                 }
-            },
+                <span class="ident">Pat</span>::<span class="ident">AffineSkip</span> <span class="op">=&gt;</span> {
+                    <span class="comment">// must advance the string slice (i-wise)</span>
+                    <span class="comment">// or advance itself - the pattern slice</span>
+                    <span class="comment">// (j-wise).</span>
+                    <span class="comment">// but it always must at least advance</span>
+                    <span class="comment">// itself.</span>
+                    <span class="comment">//</span>
+                    <span class="comment">// obs. advancing i-wise means using self.</span>
+                    <span class="comment">// last_good[_];</span>
+                    <span class="comment">// obs. advancing j-wise means using _[j].</span>
+                    <span class="ident">next_good</span>[<span class="ident">j</span> <span class="op">+</span> <span class="number">1</span>] <span class="op">=</span> <span class="self">self</span>.<span class="ident">last_good</span>[<span class="ident">j</span>] <span class="op">||</span> <span class="ident">next_good</span>[<span class="ident">j</span>];
+                }
+                <span class="ident">Pat</span>::<span class="ident">RelevantSkip</span> <span class="op">=&gt;</span> {
+                    <span class="comment">// must advance the string slice (i-wise)</span>
+                    <span class="comment">// or ignore itself - the pattern slice</span>
+                    <span class="comment">// (j-wise).</span>
+                    <span class="comment">// but it always must at least advance</span>
+                    <span class="comment">// i-wise.</span>
+                    <span class="comment">//</span>
+                    <span class="comment">// obs. advancing i-wise menas using self.</span>
+                    <span class="comment">// last_good[_];</span>
+                    <span class="comment">// obs. advancing j-wise means using _[j].</span>
+                    <span class="ident">next_good</span>[<span class="ident">j</span> <span class="op">+</span> <span class="number">1</span>] <span class="op">=</span> <span class="self">self</span>.<span class="ident">last_good</span>[<span class="ident">j</span>] <span class="op">||</span> <span class="self">self</span>.<span class="ident">last_good</span>[<span class="ident">j</span> <span class="op">+</span> <span class="number">1</span>];
+                }
+                <span class="ident">Pat</span>::<span class="ident">NormalSkip</span> <span class="op">=&gt;</span> {
+                    <span class="comment">// can ignore the strings by advancing the</span>
+                    <span class="comment">// string slice (i-wise),</span>
+                    <span class="comment">// or can be ignored by advancing itself, the</span>
+                    <span class="comment">// pattern slice (j-wise).</span>
+                    <span class="comment">//</span>
+                    <span class="comment">// obs. advancing i-wise menas using self.</span>
+                    <span class="comment">// last_good[_];</span>
+                    <span class="comment">// obs. advancing j-wise means using _[j].</span>
+                    <span class="ident">next_good</span>[<span class="ident">j</span> <span class="op">+</span> <span class="number">1</span>] <span class="op">=</span> <span class="self">self</span>.<span class="ident">last_good</span>[<span class="ident">j</span> <span class="op">+</span> <span class="number">1</span>] <span class="op">||</span> <span class="ident">next_good</span>[<span class="ident">j</span>];
+                }
+            }
+        }
 
-            <span class="comment">// `!`.</span>
-            <span class="comment">// Skips *none* or *any single* char.</span>
-            [<span class="ident">Pat</span>::<span class="ident">AffineSkip</span>, ..] <span class="op">=&gt;</span> <span class="kw">match</span> <span class="self">self</span>.<span class="ident">chars</span>.<span class="ident">len</span>() {
-                <span class="number">0</span> <span class="op">=&gt;</span> <span class="self">self</span>.<span class="ident">check_children</span>(<span class="number">0</span>..<span class="op">=</span><span class="number">0</span>),
-                <span class="ident">_n</span> <span class="op">=&gt;</span> <span class="self">self</span>.<span class="ident">check_children</span>(<span class="number">0</span>..<span class="op">=</span><span class="number">1</span>),
-            },
+        <span class="comment">// moves the string (i-wise) forward</span>
+        <span class="self">self</span>.<span class="ident">chars</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">chars</span>[<span class="number">1</span>..];
+        <span class="comment">// forgets the last_good,</span>
+        <span class="comment">// and only remembers next_good</span>
+        <span class="self">self</span>.<span class="ident">last_good</span> <span class="op">=</span> <span class="ident">next_good</span>;
 
-            <span class="comment">// `+`.</span>
-            <span class="comment">// Skips *any single* or *many arbitrary* chars.</span>
-            [<span class="ident">Pat</span>::<span class="ident">RelevantSkip</span>, ..] <span class="op">=&gt;</span> <span class="kw">match</span> <span class="self">self</span>.<span class="ident">chars</span>.<span class="ident">len</span>() {
-                <span class="number">0</span> <span class="op">=&gt;</span> <span class="prelude-val">None</span>,
-                <span class="ident">n</span> <span class="op">=&gt;</span> <span class="self">self</span>.<span class="ident">check_children</span>(<span class="number">0</span>..<span class="op">=</span><span class="ident">n</span>),
-            },
-
-            <span class="comment">// `*`.</span>
-            <span class="comment">// Skips *none* or *any single* or *many arbitrary* chars.</span>
-            [<span class="ident">Pat</span>::<span class="ident">NormalSkip</span>, ..] <span class="op">=&gt;</span> <span class="self">self</span>.<span class="ident">check_children</span>(<span class="number">0</span>..<span class="op">=</span><span class="self">self</span>.<span class="ident">chars</span>.<span class="ident">len</span>()),
+        <span class="comment">// if string has been consumed</span>
+        <span class="kw">if</span> <span class="self">self</span>.<span class="ident">chars</span>.<span class="ident">len</span>() <span class="op">==</span> <span class="number">0</span> {
+            <span class="comment">// may return true,</span>
+            <span class="comment">// if the patterns had matched the string</span>
+            <span class="prelude-val">Some</span>(<span class="kw-2">*</span><span class="self">self</span>.<span class="ident">last_good</span>.<span class="ident">iter</span>().<span class="ident">last</span>().<span class="ident">unwrap</span>())
+        } <span class="kw">else</span> {
+            <span class="comment">// otherwise, there is some pattern remaining,</span>
+            <span class="comment">// so a true cannot be guaranteed yet</span>
+            <span class="prelude-val">Some</span>(<span class="bool-val">false</span>)
         }
     }
 }
 
 <span class="doccomment">/// Idiomatic entry point.</span>
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">_is_match</span>(<span class="ident">s</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">p</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-&gt;</span> <span class="ident">bool</span> {
+    <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">last_good</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">bool</span><span class="op">&gt;</span> <span class="op">=</span> 
+        <span class="comment">// starts with a single true value</span>
+        <span class="macro">vec</span><span class="macro">!</span>[<span class="bool-val">true</span>]
+        .<span class="ident">into_iter</span>()
+        <span class="comment">// chain with another vector</span>
+        .<span class="ident">chain</span>(
+            <span class="comment">// based on the pattern</span>
+            <span class="ident">p</span>.<span class="ident">chars</span>()
+                .<span class="ident">map</span>(<span class="ident">Pat</span>::<span class="ident">from</span>)
+                <span class="comment">// where some form of skips are also true</span>
+                .<span class="ident">map</span>(<span class="op">|</span><span class="ident">p</span><span class="op">|</span> <span class="kw">match</span> <span class="ident">p</span> {
+                    <span class="ident">Pat</span>::<span class="ident">NormalSkip</span> <span class="op">=&gt;</span> <span class="bool-val">true</span>,
+                    <span class="ident">Pat</span>::<span class="ident">AffineSkip</span> <span class="op">=&gt;</span> <span class="bool-val">true</span>,
+                    <span class="kw">_</span> <span class="op">=&gt;</span> <span class="bool-val">false</span>,
+                })
+                <span class="comment">// and those trues must be consecutive from the </span>
+                <span class="comment">// beggining, otherwise they are falsified</span>
+                .<span class="ident">scan</span>(<span class="bool-val">true</span>, <span class="op">|</span><span class="ident">acc</span>, <span class="ident">b</span><span class="op">|</span> {
+                    <span class="kw-2">*</span><span class="ident">acc</span> <span class="op">=</span> <span class="kw-2">*</span><span class="ident">acc</span> <span class="op">&amp;&amp;</span> <span class="ident">b</span>;
+                    <span class="prelude-val">Some</span>(<span class="kw-2">*</span><span class="ident">acc</span>)
+                }),
+        )
+        .<span class="ident">collect</span>();
     <span class="kw">let</span> <span class="ident">chars</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">char</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">s</span>.<span class="ident">chars</span>().<span class="ident">collect</span>();
     <span class="kw">let</span> <span class="ident">pats</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Pat</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">p</span>.<span class="ident">chars</span>().<span class="ident">map</span>(<span class="ident">Into</span>::<span class="ident">into</span>).<span class="ident">collect</span>();
     <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">walker</span> <span class="op">=</span> <span class="ident">Walker</span> {
+        <span class="ident">last_good</span>,
         <span class="ident">chars</span>: <span class="ident">chars</span>.<span class="ident">as_ref</span>(),
         <span class="ident">pats</span>: <span class="ident">pats</span>.<span class="ident">as_ref</span>(),
     };
 
-    <span class="comment">// let a = aa();</span>
-    <span class="comment">// a.poll();</span>
-
     <span class="ident">walker</span>.<span class="ident">any</span>(<span class="op">|</span><span class="ident">m</span><span class="op">|</span> <span class="ident">m</span> <span class="op">==</span> <span class="bool-val">true</span>)
-}
-
-<span class="kw">async</span> <span class="kw">fn</span> <span class="ident">aa</span>() <span class="op">-&gt;</span> <span class="ident">bool</span> {
-    <span class="bool-val">true</span>
-}
-
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">cell</span>::<span class="ident">RefCell</span>;
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">future</span>::<span class="ident">Future</span>;
-
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">pin</span>::<span class="ident">Pin</span>;
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">task</span>::{<span class="ident">Context</span>, <span class="ident">Poll</span>};
-
-<span class="kw">async</span> <span class="kw">fn</span> <span class="ident">foo</span>() <span class="op">-&gt;</span> <span class="ident">u32</span> {
-    <span class="number">3</span>
-}
-
-<span class="kw">async</span> <span class="kw">fn</span> <span class="ident">square</span>() <span class="op">-&gt;</span> <span class="ident">u32</span> {
-    <span class="kw">let</span> <span class="ident">a</span> <span class="op">=</span> <span class="ident">foo</span>().<span class="kw">await</span>;
-    <span class="kw">let</span> <span class="ident">b</span> <span class="op">=</span> <span class="ident">foo</span>().<span class="kw">await</span>;
-    <span class="ident">a</span> <span class="op">*</span> <span class="ident">b</span>
-}
-
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">xx</span>(<span class="ident">cx</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Context</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="ident">u32</span> {
-    <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">f</span> <span class="op">=</span> <span class="ident">square</span>();
-    <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">f</span> <span class="op">=</span> <span class="kw">unsafe</span> { <span class="ident">Pin</span>::<span class="ident">new_unchecked</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">f</span>) };
-    <span class="kw">loop</span> {
-        <span class="kw">if</span> <span class="kw">let</span> <span class="ident">Poll</span>::<span class="ident">Ready</span>(<span class="ident">x</span>) <span class="op">=</span> <span class="ident">f</span>.<span class="ident">as_mut</span>().<span class="ident">poll</span>(<span class="ident">cx</span>) {
-            <span class="kw">break</span> <span class="ident">x</span>;
-        }
-    }
 }
 </pre></div>
 </section><section id="search" class="content hidden"></section><section class="footer"></section><script>window.rootPath = "../../";window.currentCrate = "leetcode";</script><script src="../../main.js"></script><script src="../../source-script.js"></script><script src="../../source-files.js"></script><script defer src="../../search-index.js"></script></body></html>
