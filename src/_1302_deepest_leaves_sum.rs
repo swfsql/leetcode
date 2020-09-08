@@ -11,10 +11,11 @@
 //! [Problem]: https://img.shields.io/badge/problem-555555?style=for-the-badge&labelColor=555555&logoColor=white
 //! [problemurl]: https://leetcode.com/problems/deepest-leaves-sum/
 
-pub struct Solution;
 pub use crate::common::simple_tree_node::{convert_children, SimpleTreeNode, TreeNode};
 use std::cell::RefCell;
 use std::rc::Rc;
+
+pub struct Solution;
 
 impl Solution {
     pub fn deepest_leaves_sum(root: Option<Rc<RefCell<TreeNode>>>) -> i32 {

@@ -28,7 +28,7 @@ impl Solution {
 ///
 /// Names based on [Substructural Type System](https://en.wikipedia.org/wiki/Substructural_type_system).
 #[derive(Debug, Clone)]
-enum Pat {
+pub enum Pat {
     /// `[a-z]`.
     /// Consumes a *single specified* char.
     LinearChar(char),
@@ -58,6 +58,14 @@ impl From<char> for Pat {
     }
 }
 
+impl Pat {
+    pub fn from_str(p: &str) -> impl Iterator<Item=Self> + '_ {
+        p
+            .chars()
+            .map(Into::into)
+    }
+}
+
 #[derive(Debug)]
 pub struct Walker<'s> {
     last_good: Vec<bool>,
@@ -68,17 +76,18 @@ pub struct Walker<'s> {
 impl<'s> Iterator for Walker<'s> {
     type Item = bool;
     fn next(&mut self) -> Option<Self::Item> {
-        match (self.chars.is_empty(), self.pats.is_empty()) {
-            (false, false) => {
+        let c = match (self.chars.iter().next(), self.pats.is_empty()) {
+            (Some(c), false) => {
                 // strings and pats not empty yet,
                 // (continue)
+                c
             }
-            (false, true) => {
+            (Some(_c), true) => {
                 // strings not empty but patterns empty
                 // (no more patterns available)
                 return None;
             }
-            (true, false) => {
+            (None, false) => {
                 // strings empty, patterns still not empty
                 return match *self.last_good.iter().last().unwrap() {
                     // patterns already matched to the string
@@ -87,7 +96,7 @@ impl<'s> Iterator for Walker<'s> {
                     false => None,
                 };
             }
-            (true, true) => {
+            (None, true) => {
                 // strings and patterns empty
                 // they always match
                 return Some(true);
@@ -95,10 +104,8 @@ impl<'s> Iterator for Walker<'s> {
         };
         let mut next_good = vec![false; self.pats.len() + 1];
 
-        let c = self.chars[0];
-
         for (j, p) in self.pats.iter().enumerate() {
-            match p {
+            next_good[j + 1] = match p {
                 // `[a-z]`.
                 // Consumes a *single specified* char.
                 Pat::LinearChar(cc) => {
@@ -110,8 +117,9 @@ impl<'s> Iterator for Walker<'s> {
                     // using self.last_good[_];
                     // obs. advancing j-wise means using
                     // _[j].
-                    next_good[j + 1] = self.last_good[j] && c == *cc;
+                    self.last_good[j] && c == cc
                 }
+
                 // `?`.
                 // Skips *any single* char.
                 Pat::LinearSkip => {
@@ -123,8 +131,11 @@ impl<'s> Iterator for Walker<'s> {
                     // self.last_good[_];
                     // obs. advancing j-wise means using
                     // _[j].
-                    next_good[j + 1] = self.last_good[j]
+                    self.last_good[j]
                 }
+
+                // `!`.
+                // Skips *none* or *any single* char.
                 Pat::AffineSkip => {
                     // must advance the string slice (i-wise)
                     // or advance itself - the pattern slice
@@ -132,11 +143,14 @@ impl<'s> Iterator for Walker<'s> {
                     // but it always must at least advance
                     // itself.
                     //
-                    // obs. advancing i-wise means using self.
-                    // last_good[_];
+                    // obs. advancing i-wise means using 
+                    // self.last_good[_];
                     // obs. advancing j-wise means using _[j].
-                    next_good[j + 1] = self.last_good[j] || next_good[j];
+                    self.last_good[j] || next_good[j]
                 }
+                
+                // `+`.
+                // Skips *any single* or *many arbitrary* chars.
                 Pat::RelevantSkip => {
                     // must advance the string slice (i-wise)
                     // or ignore itself - the pattern slice
@@ -144,23 +158,26 @@ impl<'s> Iterator for Walker<'s> {
                     // but it always must at least advance
                     // i-wise.
                     //
-                    // obs. advancing i-wise menas using self.
-                    // last_good[_];
+                    // obs. advancing i-wise means using 
+                    // self.last_good[_];
                     // obs. advancing j-wise means using _[j].
-                    next_good[j + 1] = self.last_good[j] || self.last_good[j + 1];
+                    self.last_good[j] || self.last_good[j + 1]
                 }
+                
+                // `*`.
+                // Skips *none* or *any single* or *many arbitrary* chars.
                 Pat::NormalSkip => {
                     // can ignore the strings by advancing the
                     // string slice (i-wise),
                     // or can be ignored by advancing itself, the
                     // pattern slice (j-wise).
                     //
-                    // obs. advancing i-wise menas using self.
-                    // last_good[_];
+                    // obs. advancing i-wise means using 
+                    // self.last_good[_];
                     // obs. advancing j-wise means using _[j].
-                    next_good[j + 1] = self.last_good[j + 1] || next_good[j];
+                    self.last_good[j + 1] || next_good[j]
                 }
-            }
+            };
         }
 
         // moves the string (i-wise) forward
@@ -175,7 +192,7 @@ impl<'s> Iterator for Walker<'s> {
             // if the patterns had matched the string
             Some(*self.last_good.iter().last().unwrap())
         } else {
-            // otherwise, there is some pattern remaining,
+            // otherwise, there is some string remaining,
             // so a true cannot be guaranteed yet
             Some(false)
         }
@@ -184,6 +201,8 @@ impl<'s> Iterator for Walker<'s> {
 
 /// Idiomatic entry point.
 pub fn _is_match(s: &str, p: &str) -> bool {
+    let chars: Vec<char> = s.chars().collect();
+    let pats: Vec<Pat> = Pat::from_str(p).collect();
     let last_good: Vec<bool> = 
         // starts with a single true value
         vec![true]
@@ -191,8 +210,7 @@ pub fn _is_match(s: &str, p: &str) -> bool {
         // chain with another vector
         .chain(
             // based on the pattern
-            p.chars()
-                .map(Pat::from)
+            pats.iter()
                 // where some form of skips are also true
                 .map(|p| match p {
                     Pat::NormalSkip => true,
@@ -207,8 +225,6 @@ pub fn _is_match(s: &str, p: &str) -> bool {
                 }),
         )
         .collect();
-    let chars: Vec<char> = s.chars().collect();
-    let pats: Vec<Pat> = p.chars().map(Into::into).collect();
     let mut walker = Walker {
         last_good,
         chars: chars.as_ref(),

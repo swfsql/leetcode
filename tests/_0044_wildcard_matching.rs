@@ -20,7 +20,7 @@ fn _0044_wildcard_matching_0() {
 }
 
 // tests the dynamic programming requirement
-// (time limit requirement)
+// (time-up BADEND)
 #[test]
 fn _0044_wildcard_matching_1() {
     assert_eq!(
