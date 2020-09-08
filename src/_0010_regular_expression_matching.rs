@@ -76,18 +76,21 @@ impl TryFrom<char> for Char {
     }
 }
 
-/// Converts a `char` while peeking into the next `char`,
-/// because that next `char` may be an operator.
+/// Converts a `Char` (from a `char`) into a `Pat`, while peeking
+/// into the next `char`.  
+/// This is necessary because `Linear` has no following 
+/// `char` operator, while the others have.
+///
+/// Note that after the last `Char`, there is no "next `char`".
 impl TryFrom<(char, Option<char>)> for Pat {
     type Error = ();
     fn try_from((current, next): (char, Option<char>)) -> Result<Self, Self::Error> {
-        match (TryInto::<Char>::try_into(current), next) {
-            (Err(()), _) => Err(()),
-            (Ok(c), Some('?')) => Ok(Self::Affine(c)),
-            (Ok(c), Some('+')) => Ok(Self::Relevant(c)),
-            (Ok(c), Some('*')) => Ok(Self::Normal(c)),
-            (Ok(c), _) => Ok(Self::Linear(c)),
-        }
+        Ok(match (TryInto::<Char>::try_into(current)?, next) {
+            (c, Some('?')) => Self::Affine(c),
+            (c, Some('+')) => Self::Relevant(c),
+            (c, Some('*')) => Self::Normal(c),
+            (c, _) => Self::Linear(c),
+        })
     }
 }
 
@@ -120,7 +123,7 @@ pub struct Walker<'s> {
 }
 
 /// Iterates by fully walking `chars`.  
-/// In each step of the way, it fully walks `pats` and updates
+/// [And every single step of the way ~(of pain)~](https://youtu.be/VBBFDb0hC4Y?t=42), it fully walks `pats` and updates
 /// `last_good`.
 impl<'s> Iterator for Walker<'s> {
     type Item = bool;
