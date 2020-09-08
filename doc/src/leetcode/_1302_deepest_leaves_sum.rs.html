@@ -56,53 +56,55 @@
 <span id="55">55</span>
 <span id="56">56</span>
 <span id="57">57</span>
+<span id="58">58</span>
 </pre><div class="example-wrap"><pre class="rust ">
-<span class="doccomment">//! # Deepest Leaves Sum</span>
-<span class="doccomment">//!</span>
-<span class="doccomment">//! [![src]][srcurl] [![Tests]][testsurl] [![Doc]][docurl] [![Problem]][problemurl]</span>
-<span class="doccomment">//!</span>
-<span class="doccomment">//! [src]: https://img.shields.io/badge/source-swfsql/leetcode-8DA0CB?style=for-the-badge&amp;labelColor=555555&amp;logo=github</span>
-<span class="doccomment">//! [srcurl]: https://github.com/swfsql/leetcode/blob/master/src/_1302_deepest_leaves_sum.rs</span>
-<span class="doccomment">//! [Tests]: https://img.shields.io/badge/tests-555555?style=for-the-badge&amp;labelColor=555555&amp;logoColor=white</span>
-<span class="doccomment">//! [testsurl]: https://github.com/swfsql/leetcode/blob/master/tests/_1302_deepest_leaves_sum.rs</span>
-<span class="doccomment">//! [doc]: https://img.shields.io/badge/docs-555555?style=for-the-badge&amp;labelColor=555555&amp;logoColor=white</span>
-<span class="doccomment">//! [docurl]: https://swfsql.github.io/leetcode/doc/leetcode/_1302_deepest_leaves_sum/index.html</span>
-<span class="doccomment">//! [Problem]: https://img.shields.io/badge/problem-555555?style=for-the-badge&amp;labelColor=555555&amp;logoColor=white</span>
-<span class="doccomment">//! [problemurl]: https://leetcode.com/problems/deepest-leaves-sum/</span>
+<span class="doccomment">//! # Deepest Leaves Sum</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! [![src]][srcurl] [![Tests]][testsurl] [![Doc]][docurl] [![Problem]][problemurl]</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! [src]: https://img.shields.io/badge/source-swfsql/leetcode-8DA0CB?style=for-the-badge&amp;labelColor=555555&amp;logo=github</span>
+<span class="doccomment">//! [srcurl]: https://github.com/swfsql/leetcode/blob/master/src/_1302_deepest_leaves_sum.rs</span>
+<span class="doccomment">//! [Tests]: https://img.shields.io/badge/tests-555555?style=for-the-badge&amp;labelColor=555555&amp;logoColor=white</span>
+<span class="doccomment">//! [testsurl]: https://github.com/swfsql/leetcode/blob/master/tests/_1302_deepest_leaves_sum.rs</span>
+<span class="doccomment">//! [doc]: https://img.shields.io/badge/docs-555555?style=for-the-badge&amp;labelColor=555555&amp;logoColor=white</span>
+<span class="doccomment">//! [docurl]: https://swfsql.github.io/leetcode/doc/leetcode/_1302_deepest_leaves_sum/index.html</span>
+<span class="doccomment">//! [Problem]: https://img.shields.io/badge/problem-555555?style=for-the-badge&amp;labelColor=555555&amp;logoColor=white</span>
+<span class="doccomment">//! [problemurl]: https://leetcode.com/problems/deepest-leaves-sum/</span>
 
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Solution</span>;
 <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">common</span>::<span class="ident">simple_tree_node</span>::{<span class="ident">convert_children</span>, <span class="ident">SimpleTreeNode</span>, <span class="ident">TreeNode</span>};
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">cell</span>::<span class="ident">RefCell</span>;
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">rc</span>::<span class="ident">Rc</span>;
 
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Solution</span>;
+
 <span class="kw">impl</span> <span class="ident">Solution</span> {
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">deepest_leaves_sum</span>(<span class="ident">root</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Rc</span><span class="op">&lt;</span><span class="ident">RefCell</span><span class="op">&lt;</span><span class="ident">TreeNode</span><span class="op">&gt;&gt;</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="ident">i32</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">deepest_leaves_sum</span>(<span class="ident">root</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Rc</span><span class="op">&lt;</span><span class="ident">RefCell</span><span class="op">&lt;</span><span class="ident">TreeNode</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">i32</span> {
         <span class="kw">let</span> <span class="ident">root</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">SimpleTreeNode</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">root</span>.<span class="ident">as_ref</span>().<span class="ident">map</span>(<span class="ident">convert_children</span>).<span class="ident">map</span>(<span class="op">|</span><span class="ident">b</span><span class="op">|</span> <span class="kw-2">*</span><span class="ident">b</span>);
         <span class="ident">_deepest_leaves_sum</span>(<span class="ident">root</span>)
     }
 }
 
-<span class="doccomment">/// Idiomatic entry point.</span>
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">_deepest_leaves_sum</span>(<span class="ident">root</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">SimpleTreeNode</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="ident">i32</span> {
-    <span class="ident">root</span>.<span class="ident">map</span>(<span class="op">|</span><span class="ident">n</span><span class="op">|</span> <span class="ident">n</span>.<span class="ident">deepest_leaves_sum</span>(<span class="number">0</span>).<span class="number">1</span>).<span class="ident">unwrap_or_else</span>(<span class="op">||</span> <span class="number">0</span>)
+<span class="doccomment">/// Idiomatic entry point.</span>
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">_deepest_leaves_sum</span>(<span class="ident">root</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">SimpleTreeNode</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">i32</span> {
+    <span class="ident">root</span>.<span class="ident">map</span>(<span class="op">|</span><span class="ident">n</span><span class="op">|</span> <span class="ident">n</span>.<span class="ident">deepest_leaves_sum</span>(<span class="number">0</span>).<span class="number">1</span>).<span class="ident">unwrap_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="number">0</span>)
 }
 
 <span class="kw">impl</span> <span class="ident">SimpleTreeNode</span> {
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">deepest_leaves_sum</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">last_depth</span>: <span class="ident">usize</span>) <span class="op">-&gt;</span> (<span class="ident">usize</span>, <span class="ident">i32</span>) {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">deepest_leaves_sum</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">last_depth</span>: <span class="ident">usize</span>) <span class="op">-</span><span class="op">&gt;</span> (<span class="ident">usize</span>, <span class="ident">i32</span>) {
         <span class="self">self</span>.<span class="ident">children</span>()
             .<span class="ident">iter</span>()
             .<span class="ident">map</span>(<span class="op">|</span><span class="ident">c</span><span class="op">|</span> {
                 <span class="ident">c</span>.<span class="ident">map</span>(<span class="op">|</span><span class="ident">_c</span><span class="op">|</span> <span class="ident">_c</span>.<span class="ident">deepest_leaves_sum</span>(<span class="ident">last_depth</span> <span class="op">+</span> <span class="number">1</span>))
-                    <span class="comment">// children inexistent</span>
-                    .<span class="ident">unwrap_or_else</span>(<span class="op">||</span> (<span class="number">0</span>, <span class="number">0</span>))
+                    <span class="comment">// children inexistent</span>
+                    .<span class="ident">unwrap_or_else</span>(<span class="op">|</span><span class="op">|</span> (<span class="number">0</span>, <span class="number">0</span>))
             })
-            <span class="comment">// also adds self value (used in case this is a leaf)</span>
+            <span class="comment">// also adds self value (used in case this is a leaf)</span>
             .<span class="ident">chain</span>([(<span class="ident">last_depth</span>, <span class="self">self</span>.<span class="ident">val</span>); <span class="number">1</span>].<span class="ident">iter</span>().<span class="ident">cloned</span>())
-            <span class="comment">// get the best result for this node</span>
+            <span class="comment">// get the best result for this node</span>
             .<span class="ident">fold</span>(
                 (<span class="number">0</span>, <span class="number">0</span>),
                 <span class="op">|</span>(<span class="ident">last_max_depth</span>, <span class="ident">last_max_sum</span>), (<span class="ident">this_depth</span>, <span class="ident">this_max_sum</span>)<span class="op">|</span> {
-                    <span class="kw">let</span> <span class="ident">res</span> <span class="op">=</span> <span class="kw">if</span> <span class="ident">this_depth</span> <span class="op">==</span> <span class="ident">last_max_depth</span> {
+                    <span class="kw">let</span> <span class="ident">res</span> <span class="op">=</span> <span class="kw">if</span> <span class="ident">this_depth</span> <span class="op">=</span><span class="op">=</span> <span class="ident">last_max_depth</span> {
                         (<span class="ident">last_max_depth</span>, <span class="ident">last_max_sum</span> <span class="op">+</span> <span class="ident">this_max_sum</span>)
                     } <span class="kw">else</span> <span class="kw">if</span> <span class="ident">this_depth</span> <span class="op">&gt;</span> <span class="ident">last_max_depth</span> {
                         (<span class="ident">this_depth</span>, <span class="ident">this_max_sum</span>)

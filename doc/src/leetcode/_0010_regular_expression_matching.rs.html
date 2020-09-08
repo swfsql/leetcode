@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `src\_0044_wildcard_matching.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>_0044_wildcard_matching.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled ><script src="../../storage.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="shortcut icon" href="../../favicon.ico"><style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../../leetcode/index.html'><div class='logo-container rust-logo'><img src='../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../theme.js"></script><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><span class="help-button">?</span>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `src\_0010_regular_expression_matching.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>_0010_regular_expression_matching.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled ><script src="../../storage.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="shortcut icon" href="../../favicon.ico"><style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../../leetcode/index.html'><div class='logo-container rust-logo'><img src='../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../theme.js"></script><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><span class="help-button">?</span>
                 <a id="settings-menu" href="../../settings.html"><img src="../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">  1</span>
 <span id="2">  2</span>
 <span id="3">  3</span>
@@ -234,21 +234,55 @@
 <span id="233">233</span>
 <span id="234">234</span>
 <span id="235">235</span>
+<span id="236">236</span>
+<span id="237">237</span>
+<span id="238">238</span>
+<span id="239">239</span>
+<span id="240">240</span>
+<span id="241">241</span>
+<span id="242">242</span>
+<span id="243">243</span>
+<span id="244">244</span>
+<span id="245">245</span>
+<span id="246">246</span>
+<span id="247">247</span>
+<span id="248">248</span>
+<span id="249">249</span>
+<span id="250">250</span>
+<span id="251">251</span>
+<span id="252">252</span>
+<span id="253">253</span>
+<span id="254">254</span>
+<span id="255">255</span>
+<span id="256">256</span>
+<span id="257">257</span>
+<span id="258">258</span>
+<span id="259">259</span>
+<span id="260">260</span>
+<span id="261">261</span>
+<span id="262">262</span>
+<span id="263">263</span>
+<span id="264">264</span>
+<span id="265">265</span>
+<span id="266">266</span>
+<span id="267">267</span>
 </pre><div class="example-wrap"><pre class="rust ">
-<span class="doccomment">//! # Wildcard Matching</span>
+<span class="doccomment">//! # Regular Expression Matching</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! [![src]][srcurl] [![Tests]][testsurl] [![Doc]][docurl] [![Problem]][problemurl]</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! [src]: https://img.shields.io/badge/source-swfsql/leetcode-8DA0CB?style=for-the-badge&amp;labelColor=555555&amp;logo=github</span>
-<span class="doccomment">//! [srcurl]: https://github.com/swfsql/leetcode/blob/master/src/_0044_wildcard_matching.rs</span>
+<span class="doccomment">//! [srcurl]: https://github.com/swfsql/leetcode/blob/master/src/_0010_regular_expression_matching.rs</span>
 <span class="doccomment">//! [Tests]: https://img.shields.io/badge/tests-555555?style=for-the-badge&amp;labelColor=555555&amp;logoColor=white</span>
-<span class="doccomment">//! [testsurl]: https://github.com/swfsql/leetcode/blob/master/tests/_0044_wildcard_matching.rs</span>
+<span class="doccomment">//! [testsurl]: https://github.com/swfsql/leetcode/blob/master/tests/_0010_regular_expression_matching.rs</span>
 <span class="doccomment">//! [doc]: https://img.shields.io/badge/docs-555555?style=for-the-badge&amp;labelColor=555555&amp;logoColor=white</span>
-<span class="doccomment">//! [docurl]: https://swfsql.github.io/leetcode/doc/leetcode/_0044_wildcard_matching/index.html</span>
+<span class="doccomment">//! [docurl]: https://swfsql.github.io/leetcode/doc/leetcode/_0010_regular_expression_matching/index.html</span>
 <span class="doccomment">//! [Problem]: https://img.shields.io/badge/problem-555555?style=for-the-badge&amp;labelColor=555555&amp;logoColor=white</span>
-<span class="doccomment">//! [problemurl]: https://leetcode.com/problems/wildcard-matching/</span>
+<span class="doccomment">//! [problemurl]: https://leetcode.com/problems/regular-expression-matching/</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! Based on [Lynss/solution](https://leetcode.com/problems/wildcard-matching/discuss/527138/rust-dp-solution).</span>
+<span class="doccomment">//! Based on [44-wildcard-matching](https://leetcode.com/problems/wildcard-matching/discuss/827028/Rust-tentative-solution-(not-original)-16-ms-2.1-MB).</span>
+
+<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">convert</span>::{<span class="ident">TryFrom</span>, <span class="ident">TryInto</span>};
 
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Solution</span>;
 
@@ -261,48 +295,92 @@
     }
 }
 
+<span class="doccomment">/// Character which may actually be &quot;any&quot; character.</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Clone</span>)]</span>
+<span class="kw">enum</span> <span class="ident">Char</span> {
+    <span class="prelude-val">Some</span>(<span class="ident">char</span>),
+    <span class="ident">Any</span>,
+}
+
+<span class="doccomment">/// Allows comparing a `Char` with a `char`.  </span>
+<span class="doccomment">/// ie. `Char::Any` always matches.</span>
+<span class="kw">impl</span> <span class="ident">PartialEq</span><span class="op">&lt;</span><span class="ident">char</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Char</span> {
+    <span class="kw">fn</span> <span class="ident">eq</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">other</span>: <span class="kw-2">&amp;</span><span class="ident">char</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
+        <span class="kw">match</span> <span class="self">self</span> {
+            <span class="self">Self</span>::<span class="ident">Any</span> <span class="op">=</span><span class="op">&gt;</span> <span class="bool-val">true</span>,
+            <span class="self">Self</span>::<span class="prelude-val">Some</span>(<span class="ident">cc</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">cc</span> <span class="op">=</span><span class="op">=</span> <span class="ident">other</span>,
+        }
+    }
+}
+
+
 <span class="doccomment">/// Represent all patterns.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// Names based on [Substructural Type System](https://en.wikipedia.org/wiki/Substructural_type_system).</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Clone</span>)]</span>
-<span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">Pat</span> {
-    <span class="doccomment">/// `[a-z]`.</span>
-    <span class="doccomment">/// Consumes a *single specified* char.</span>
-    <span class="ident">LinearChar</span>(<span class="ident">char</span>),
+<span class="kw">enum</span> <span class="ident">Pat</span> {
+    <span class="doccomment">/// `[a-z]` or `.` not followed by `*`/`+`/`?`.</span>
+    <span class="doccomment">/// Matches a *single* `Char`.</span>
+    <span class="ident">Linear</span>(<span class="ident">Char</span>),
     <span class="doccomment">/// `?`.</span>
-    <span class="doccomment">/// Skips *any single* char.</span>
-    <span class="ident">LinearSkip</span>,
-    <span class="doccomment">/// `!`.</span>
-    <span class="doccomment">/// Skips *none* or *any single* char.</span>
-    <span class="ident">AffineSkip</span>,
+    <span class="doccomment">/// Matches *none* or a *single* `Char`.</span>
+    <span class="ident">Affine</span>(<span class="ident">Char</span>),
     <span class="doccomment">/// `+`.</span>
-    <span class="doccomment">/// Skips *any single* or *many arbitrary* chars.</span>
-    <span class="ident">RelevantSkip</span>,
+    <span class="doccomment">/// Matches a *single* or *many* times a `Char`.</span>
+    <span class="ident">Relevant</span>(<span class="ident">Char</span>),
     <span class="doccomment">/// `*`.</span>
-    <span class="doccomment">/// Skips *none* or *any single* or *many arbitrary* chars.</span>
-    <span class="ident">NormalSkip</span>,
+    <span class="doccomment">/// Matches *none* or a *single* or *many* times a `Char`.</span>
+    <span class="ident">Normal</span>(<span class="ident">Char</span>),
 }
 
-<span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">char</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Pat</span> {
-    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">c</span>: <span class="ident">char</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+<span class="doccomment">/// Treat `?`, `+`, etc.. operators as a conversion failure.</span>
+<span class="kw">impl</span> <span class="ident">TryFrom</span><span class="op">&lt;</span><span class="ident">char</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Char</span> {
+    <span class="kw">type</span> <span class="ident">Error</span> <span class="op">=</span> ();
+    <span class="kw">fn</span> <span class="ident">try_from</span>(<span class="ident">c</span>: <span class="ident">char</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="self">Self</span>::<span class="ident">Error</span><span class="op">&gt;</span> {
         <span class="kw">match</span> <span class="ident">c</span> {
-            <span class="string">&#39;?&#39;</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span>::<span class="ident">LinearSkip</span>,
-            <span class="string">&#39;!&#39;</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span>::<span class="ident">AffineSkip</span>,
-            <span class="string">&#39;+&#39;</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span>::<span class="ident">RelevantSkip</span>,
-            <span class="string">&#39;*&#39;</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span>::<span class="ident">NormalSkip</span>,
-            <span class="ident">c</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span>::<span class="ident">LinearChar</span>(<span class="ident">c</span>),
+            <span class="string">&#39;.&#39;</span> <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">Char</span>::<span class="ident">Any</span>),
+            <span class="string">&#39;?&#39;</span> <span class="op">|</span> <span class="string">&#39;+&#39;</span> <span class="op">|</span> <span class="string">&#39;*&#39;</span>  <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Err</span>(()),
+            <span class="ident">c</span> <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">Char</span>::<span class="prelude-val">Some</span>(<span class="ident">c</span>)),
+        }
+    }
+}
+
+<span class="doccomment">/// Converts a `char` while peeking into the next `char`,</span>
+<span class="doccomment">/// because that next `char` may be an operator.</span>
+<span class="kw">impl</span> <span class="ident">TryFrom</span><span class="op">&lt;</span>(<span class="ident">char</span>, <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">char</span><span class="op">&gt;</span>)<span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Pat</span> {
+    <span class="kw">type</span> <span class="ident">Error</span> <span class="op">=</span> ();
+    <span class="kw">fn</span> <span class="ident">try_from</span>((<span class="ident">current</span>, <span class="ident">next</span>): (<span class="ident">char</span>, <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">char</span><span class="op">&gt;</span>)) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="self">Self</span>::<span class="ident">Error</span><span class="op">&gt;</span> {
+        <span class="kw">match</span> (<span class="ident">TryInto</span>::<span class="op">&lt;</span><span class="ident">Char</span><span class="op">&gt;</span>::<span class="ident">try_into</span>(<span class="ident">current</span>), <span class="ident">next</span>) {
+            (<span class="prelude-val">Err</span>(()), <span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Err</span>(()),
+            (<span class="prelude-val">Ok</span>(<span class="ident">c</span>), <span class="prelude-val">Some</span>(<span class="string">&#39;?&#39;</span>)) <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Ok</span>(<span class="self">Self</span>::<span class="ident">Affine</span>(<span class="ident">c</span>)),
+            (<span class="prelude-val">Ok</span>(<span class="ident">c</span>), <span class="prelude-val">Some</span>(<span class="string">&#39;+&#39;</span>)) <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Ok</span>(<span class="self">Self</span>::<span class="ident">Relevant</span>(<span class="ident">c</span>)),
+            (<span class="prelude-val">Ok</span>(<span class="ident">c</span>), <span class="prelude-val">Some</span>(<span class="string">&#39;*&#39;</span>)) <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Ok</span>(<span class="self">Self</span>::<span class="ident">Normal</span>(<span class="ident">c</span>)),
+            (<span class="prelude-val">Ok</span>(<span class="ident">c</span>), <span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Ok</span>(<span class="self">Self</span>::<span class="ident">Linear</span>(<span class="ident">c</span>)),
         }
     }
 }
 
 <span class="kw">impl</span> <span class="ident">Pat</span> {
+    <span class="doccomment">/// Given an string, produces an iterator of pattern.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">from_str</span>(<span class="ident">p</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw">impl</span> <span class="ident">Iterator</span><span class="op">&lt;</span><span class="ident">Item</span><span class="op">=</span><span class="self">Self</span><span class="op">&gt;</span> <span class="op">+</span> <span class="lifetime">&#39;_</span> {
         <span class="ident">p</span>
             .<span class="ident">chars</span>()
-            .<span class="ident">map</span>(<span class="ident">Into</span>::<span class="ident">into</span>)
+            <span class="comment">// we need to &quot;preview&quot; the next char,</span>
+            <span class="comment">// so zip with itself, but skipping one,</span>
+            <span class="comment">// but with this we lose the last char</span>
+            .<span class="ident">zip</span>(<span class="ident">p</span>.<span class="ident">chars</span>().<span class="ident">skip</span>(<span class="number">1</span>).<span class="ident">map</span>(<span class="prelude-val">Some</span>))
+            <span class="comment">// so we retrieve that last char</span>
+            .<span class="ident">chain</span>(<span class="ident">p</span>.<span class="ident">chars</span>().<span class="ident">map</span>(<span class="op">|</span><span class="ident">c</span><span class="op">|</span> (<span class="ident">c</span>, <span class="prelude-val">None</span>)).<span class="ident">last</span>())
+            <span class="comment">// map each (curr, next) tuple into a proper Pat</span>
+            .<span class="ident">map</span>(<span class="ident">Pat</span>::<span class="ident">try_from</span>)
+            <span class="comment">// and filter-out errored Pats</span>
+            <span class="comment">// (since that was part of the conversion logic)</span>
+            .<span class="ident">filter_map</span>(<span class="prelude-ty">Result</span>::<span class="ident">ok</span>)
     }
 }
 
+<span class="doccomment">/// Walker that intends to walk over `chars` and `pats`.  </span>
+<span class="doccomment">/// See it&#39;s `Iterator` impl for more info.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Walker</span><span class="op">&lt;</span><span class="lifetime">&#39;s</span><span class="op">&gt;</span> {
     <span class="ident">last_good</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">bool</span><span class="op">&gt;</span>,
@@ -310,9 +388,13 @@
     <span class="ident">pats</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;s</span> [<span class="ident">Pat</span>],
 }
 
+<span class="doccomment">/// Iterates by fully walking `chars`.  </span>
+<span class="doccomment">/// In each step of the way, it fully walks `pats` and updates</span>
+<span class="doccomment">/// `last_good`.</span>
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;s</span><span class="op">&gt;</span> <span class="ident">Iterator</span> <span class="kw">for</span> <span class="ident">Walker</span><span class="op">&lt;</span><span class="lifetime">&#39;s</span><span class="op">&gt;</span> {
     <span class="kw">type</span> <span class="ident">Item</span> <span class="op">=</span> <span class="ident">bool</span>;
     <span class="kw">fn</span> <span class="ident">next</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="self">Self</span>::<span class="ident">Item</span><span class="op">&gt;</span> {
+        <span class="comment">// the current input/i-wise character is..</span>
         <span class="kw">let</span> <span class="ident">c</span> <span class="op">=</span> <span class="kw">match</span> (<span class="self">self</span>.<span class="ident">chars</span>.<span class="ident">iter</span>().<span class="ident">next</span>(), <span class="self">self</span>.<span class="ident">pats</span>.<span class="ident">is_empty</span>()) {
             (<span class="prelude-val">Some</span>(<span class="ident">c</span>), <span class="bool-val">false</span>) <span class="op">=</span><span class="op">&gt;</span> {
                 <span class="comment">// strings and pats not empty yet,</span>
@@ -339,80 +421,62 @@
                 <span class="kw">return</span> <span class="prelude-val">Some</span>(<span class="bool-val">true</span>);
             }
         };
+        
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">next_good</span> <span class="op">=</span> <span class="macro">vec</span><span class="macro">!</span>[<span class="bool-val">false</span>; <span class="self">self</span>.<span class="ident">pats</span>.<span class="ident">len</span>() <span class="op">+</span> <span class="number">1</span>];
 
         <span class="kw">for</span> (<span class="ident">j</span>, <span class="ident">p</span>) <span class="kw">in</span> <span class="self">self</span>.<span class="ident">pats</span>.<span class="ident">iter</span>().<span class="ident">enumerate</span>() {
             <span class="ident">next_good</span>[<span class="ident">j</span> <span class="op">+</span> <span class="number">1</span>] <span class="op">=</span> <span class="kw">match</span> <span class="ident">p</span> {
-                <span class="comment">// `[a-z]`.</span>
-                <span class="comment">// Consumes a *single specified* char.</span>
-                <span class="ident">Pat</span>::<span class="ident">LinearChar</span>(<span class="ident">cc</span>) <span class="op">=</span><span class="op">&gt;</span> {
-                    <span class="comment">// must advance the string slice (i-wise),</span>
-                    <span class="comment">// and also itself - the pattern slice (j-wise),</span>
+                <span class="comment">// `[a-z]` or `.` not followed by `*`/`+`/`?`.</span>
+                <span class="comment">// Matches a *single* `Char`.</span>
+                <span class="ident">Pat</span>::<span class="ident">Linear</span>(<span class="ident">cc</span>) <span class="op">=</span><span class="op">&gt;</span> {
+                    <span class="comment">// must advance the string slice (i-wise </span>
+                    <span class="comment">// - last_good[j] -&gt; next_good[_]),</span>
+                    <span class="comment">//</span>
+                    <span class="comment">// and also itself - the pattern slice</span>
+                    <span class="comment">// (j-wise - _[j] -&gt; next_good[j+1]),</span>
+                    <span class="comment">//</span>
                     <span class="comment">// and also match the character.</span>
                     <span class="comment">//</span>
-                    <span class="comment">// obs. advancing i-wise means</span>
-                    <span class="comment">// using self.last_good[_];</span>
-                    <span class="comment">// obs. advancing j-wise means using</span>
-                    <span class="comment">// _[j].</span>
-                    <span class="self">self</span>.<span class="ident">last_good</span>[<span class="ident">j</span>] <span class="op">&amp;&amp;</span> <span class="ident">c</span> <span class="op">=</span><span class="op">=</span> <span class="ident">cc</span>
+                    <span class="self">self</span>.<span class="ident">last_good</span>[<span class="ident">j</span>] <span class="op">&amp;&amp;</span> <span class="ident">cc</span> <span class="op">=</span><span class="op">=</span> <span class="ident">c</span>
                 }
 
                 <span class="comment">// `?`.</span>
-                <span class="comment">// Skips *any single* char.</span>
-                <span class="ident">Pat</span>::<span class="ident">LinearSkip</span> <span class="op">=</span><span class="op">&gt;</span> {
-                    <span class="comment">// must advance the string slice (i-wise),</span>
-                    <span class="comment">// and also itself - the pattern slice</span>
-                    <span class="comment">// (j-wise).</span>
+                <span class="comment">// Matches *none* or a *single* `Char`.</span>
+                <span class="ident">Pat</span>::<span class="ident">Affine</span>(<span class="ident">cc</span>) <span class="op">=</span><span class="op">&gt;</span> {
+                    <span class="comment">// must advance the string slice (i-wise </span>
+                    <span class="comment">// - last_good[j] -&gt; next_good[_])</span>
+                    <span class="comment">// and also match the character.</span>
                     <span class="comment">//</span>
-                    <span class="comment">// obs. advancing i-wise means using</span>
-                    <span class="comment">// self.last_good[_];</span>
-                    <span class="comment">// obs. advancing j-wise means using</span>
-                    <span class="comment">// _[j].</span>
-                    <span class="self">self</span>.<span class="ident">last_good</span>[<span class="ident">j</span>]
+                    <span class="comment">// or advance itself - the pattern slice</span>
+                    <span class="comment">// (j-wise - next_good[j] -&gt; next_good[j+1]),</span>
+                    <span class="comment">// while ignoring the character.</span>
+                    <span class="comment">//</span>
+                    <span class="self">self</span>.<span class="ident">last_good</span>[<span class="ident">j</span>] <span class="op">&amp;&amp;</span> <span class="ident">cc</span> <span class="op">=</span><span class="op">=</span> <span class="ident">c</span> <span class="op">|</span><span class="op">|</span> <span class="ident">next_good</span>[<span class="ident">j</span>] 
                 }
 
-                <span class="comment">// `!`.</span>
-                <span class="comment">// Skips *none* or *any single* char.</span>
-                <span class="ident">Pat</span>::<span class="ident">AffineSkip</span> <span class="op">=</span><span class="op">&gt;</span> {
-                    <span class="comment">// must advance the string slice (i-wise)</span>
-                    <span class="comment">// or advance itself - the pattern slice</span>
-                    <span class="comment">// (j-wise).</span>
-                    <span class="comment">// but it always must at least advance</span>
-                    <span class="comment">// itself.</span>
-                    <span class="comment">//</span>
-                    <span class="comment">// obs. advancing i-wise means using </span>
-                    <span class="comment">// self.last_good[_];</span>
-                    <span class="comment">// obs. advancing j-wise means using _[j].</span>
-                    <span class="self">self</span>.<span class="ident">last_good</span>[<span class="ident">j</span>] <span class="op">|</span><span class="op">|</span> <span class="ident">next_good</span>[<span class="ident">j</span>]
-                }
-                
                 <span class="comment">// `+`.</span>
-                <span class="comment">// Skips *any single* or *many arbitrary* chars.</span>
-                <span class="ident">Pat</span>::<span class="ident">RelevantSkip</span> <span class="op">=</span><span class="op">&gt;</span> {
-                    <span class="comment">// must advance the string slice (i-wise)</span>
-                    <span class="comment">// or ignore itself - the pattern slice</span>
-                    <span class="comment">// (j-wise).</span>
-                    <span class="comment">// but it always must at least advance</span>
-                    <span class="comment">// i-wise.</span>
+                <span class="comment">// Matches a *single* or *many* times a `Char`.</span>
+                <span class="ident">Pat</span>::<span class="ident">Relevant</span>(<span class="ident">cc</span>) <span class="op">=</span><span class="op">&gt;</span> {
+                    <span class="comment">// must advance the string slice (i-wise </span>
+                    <span class="comment">// - last_good[j] -&gt; next_good[_],</span>
+                    <span class="comment">// or last_good[j+1] -&gt; next_good[_]),</span>
+                    <span class="comment">// and also match the character.</span>
                     <span class="comment">//</span>
-                    <span class="comment">// obs. advancing i-wise means using </span>
-                    <span class="comment">// self.last_good[_];</span>
-                    <span class="comment">// obs. advancing j-wise means using _[j].</span>
-                    <span class="self">self</span>.<span class="ident">last_good</span>[<span class="ident">j</span>] <span class="op">|</span><span class="op">|</span> <span class="self">self</span>.<span class="ident">last_good</span>[<span class="ident">j</span> <span class="op">+</span> <span class="number">1</span>]
+                    (<span class="self">self</span>.<span class="ident">last_good</span>[<span class="ident">j</span>] <span class="op">|</span><span class="op">|</span> <span class="self">self</span>.<span class="ident">last_good</span>[<span class="ident">j</span> <span class="op">+</span> <span class="number">1</span>]) <span class="op">&amp;&amp;</span> <span class="ident">cc</span> <span class="op">=</span><span class="op">=</span> <span class="ident">c</span>
                 }
                 
                 <span class="comment">// `*`.</span>
-                <span class="comment">// Skips *none* or *any single* or *many arbitrary* chars.</span>
-                <span class="ident">Pat</span>::<span class="ident">NormalSkip</span> <span class="op">=</span><span class="op">&gt;</span> {
-                    <span class="comment">// can ignore the strings by advancing the</span>
-                    <span class="comment">// string slice (i-wise),</span>
-                    <span class="comment">// or can be ignored by advancing itself, the</span>
-                    <span class="comment">// pattern slice (j-wise).</span>
+                <span class="comment">// Matches *none* or a *single* or *many* times a `Char`.</span>
+                <span class="ident">Pat</span>::<span class="ident">Normal</span>(<span class="ident">cc</span>) <span class="op">=</span><span class="op">&gt;</span> {
+                    <span class="comment">// must advance the string slice (i-wise </span>
+                    <span class="comment">// - last_good[j+1] -&gt; next_good[_])</span>
+                    <span class="comment">// and also match the character.</span>
                     <span class="comment">//</span>
-                    <span class="comment">// obs. advancing i-wise means using </span>
-                    <span class="comment">// self.last_good[_];</span>
-                    <span class="comment">// obs. advancing j-wise means using _[j].</span>
-                    <span class="self">self</span>.<span class="ident">last_good</span>[<span class="ident">j</span> <span class="op">+</span> <span class="number">1</span>] <span class="op">|</span><span class="op">|</span> <span class="ident">next_good</span>[<span class="ident">j</span>]
+                    <span class="comment">// or advance itself - the pattern slice</span>
+                    <span class="comment">// (j-wise - next_good[j] -&gt; next_good[j+1]),</span>
+                    <span class="comment">// while ignoring the character.</span>
+                    <span class="comment">//</span>
+                    <span class="self">self</span>.<span class="ident">last_good</span>[<span class="ident">j</span> <span class="op">+</span> <span class="number">1</span>] <span class="op">&amp;&amp;</span> <span class="ident">cc</span> <span class="op">=</span><span class="op">=</span> <span class="ident">c</span> <span class="op">|</span><span class="op">|</span> <span class="ident">next_good</span>[<span class="ident">j</span>] 
                 }
             };
         }
@@ -450,8 +514,8 @@
             <span class="ident">pats</span>.<span class="ident">iter</span>()
                 <span class="comment">// where some form of skips are also true</span>
                 .<span class="ident">map</span>(<span class="op">|</span><span class="ident">p</span><span class="op">|</span> <span class="kw">match</span> <span class="ident">p</span> {
-                    <span class="ident">Pat</span>::<span class="ident">NormalSkip</span> <span class="op">=</span><span class="op">&gt;</span> <span class="bool-val">true</span>,
-                    <span class="ident">Pat</span>::<span class="ident">AffineSkip</span> <span class="op">=</span><span class="op">&gt;</span> <span class="bool-val">true</span>,
+                    <span class="ident">Pat</span>::<span class="ident">Normal</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="bool-val">true</span>,
+                    <span class="ident">Pat</span>::<span class="ident">Affine</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="bool-val">true</span>,
                     <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="bool-val">false</span>,
                 })
                 <span class="comment">// and those trues must be consecutive from the </span>

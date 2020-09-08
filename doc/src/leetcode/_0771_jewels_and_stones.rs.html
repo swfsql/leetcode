@@ -33,24 +33,24 @@
 <span id="32">32</span>
 <span id="33">33</span>
 </pre><div class="example-wrap"><pre class="rust ">
-<span class="doccomment">//! # Jewels and Stones</span>
-<span class="doccomment">//!</span>
-<span class="doccomment">//!</span>
-<span class="doccomment">//! [![src]][srcurl] [![Tests]][testsurl] [![Doc]][docurl] [![Problem]][problemurl]</span>
-<span class="doccomment">//!</span>
-<span class="doccomment">//! [src]: https://img.shields.io/badge/source-swfsql/leetcode-8DA0CB?style=for-the-badge&amp;labelColor=555555&amp;logo=github</span>
-<span class="doccomment">//! [srcurl]: https://github.com/swfsql/leetcode/blob/master/src/_0771_jewels_and_stones.rs</span>
-<span class="doccomment">//! [Tests]: https://img.shields.io/badge/tests-555555?style=for-the-badge&amp;labelColor=555555&amp;logoColor=white</span>
-<span class="doccomment">//! [testsurl]: https://github.com/swfsql/leetcode/blob/master/tests/_0771_jewels_and_stones.rs</span>
-<span class="doccomment">//! [doc]: https://img.shields.io/badge/docs-555555?style=for-the-badge&amp;labelColor=555555&amp;logoColor=white</span>
-<span class="doccomment">//! [docurl]: https://swfsql.github.io/leetcode/doc/leetcode/_0771_jewels_and_stones/index.html</span>
-<span class="doccomment">//! [Problem]: https://img.shields.io/badge/problem-555555?style=for-the-badge&amp;labelColor=555555&amp;logoColor=white</span>
-<span class="doccomment">//! [problemurl]: https://leetcode.com/problems/jewels-and-stones/</span>
+<span class="doccomment">//! # Jewels and Stones</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! [![src]][srcurl] [![Tests]][testsurl] [![Doc]][docurl] [![Problem]][problemurl]</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! [src]: https://img.shields.io/badge/source-swfsql/leetcode-8DA0CB?style=for-the-badge&amp;labelColor=555555&amp;logo=github</span>
+<span class="doccomment">//! [srcurl]: https://github.com/swfsql/leetcode/blob/master/src/_0771_jewels_and_stones.rs</span>
+<span class="doccomment">//! [Tests]: https://img.shields.io/badge/tests-555555?style=for-the-badge&amp;labelColor=555555&amp;logoColor=white</span>
+<span class="doccomment">//! [testsurl]: https://github.com/swfsql/leetcode/blob/master/tests/_0771_jewels_and_stones.rs</span>
+<span class="doccomment">//! [doc]: https://img.shields.io/badge/docs-555555?style=for-the-badge&amp;labelColor=555555&amp;logoColor=white</span>
+<span class="doccomment">//! [docurl]: https://swfsql.github.io/leetcode/doc/leetcode/_0771_jewels_and_stones/index.html</span>
+<span class="doccomment">//! [Problem]: https://img.shields.io/badge/problem-555555?style=for-the-badge&amp;labelColor=555555&amp;logoColor=white</span>
+<span class="doccomment">//! [problemurl]: https://leetcode.com/problems/jewels-and-stones/</span>
 
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Solution</span>;
 
 <span class="kw">impl</span> <span class="ident">Solution</span> {
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">num_jewels_in_stones</span>(<span class="ident">j</span>: <span class="ident">String</span>, <span class="ident">s</span>: <span class="ident">String</span>) <span class="op">-&gt;</span> <span class="ident">i32</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">num_jewels_in_stones</span>(<span class="ident">j</span>: <span class="ident">String</span>, <span class="ident">s</span>: <span class="ident">String</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">i32</span> {
         <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">convert</span>::<span class="ident">TryInto</span>;
         <span class="ident">_num_jewels_in_stones</span>(<span class="ident">j</span>.<span class="ident">chars</span>(), <span class="ident">s</span>.<span class="ident">chars</span>())
             .<span class="ident">try_into</span>()
@@ -58,11 +58,11 @@
     }
 }
 
-<span class="doccomment">/// Idiomatic entry point.</span>
+<span class="doccomment">/// Idiomatic entry point.</span>
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">_num_jewels_in_stones</span>(
     <span class="ident">j</span>: <span class="kw">impl</span> <span class="ident">Iterator</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> <span class="ident">char</span><span class="op">&gt;</span>,
     <span class="ident">s</span>: <span class="kw">impl</span> <span class="ident">Iterator</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> <span class="ident">char</span><span class="op">&gt;</span>,
-) <span class="op">-&gt;</span> <span class="ident">usize</span> {
+) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">usize</span> {
     <span class="kw">let</span> <span class="ident">j</span>: <span class="ident">std</span>::<span class="ident">collections</span>::<span class="ident">HashSet</span><span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">j</span>.<span class="ident">collect</span>();
     <span class="ident">s</span>.<span class="ident">filter</span>(<span class="op">|</span><span class="ident">item</span><span class="op">|</span> <span class="ident">j</span>.<span class="ident">contains</span>(<span class="ident">item</span>)).<span class="ident">count</span>()
 }

@@ -1,3 +1,3 @@
 (function() {var implementors = {};
-implementors["leetcode"] = [{"text":"impl&lt;'s&gt; Debug for Walker&lt;'s&gt;","synthetic":false,"types":[]},{"text":"impl Debug for TreeNode","synthetic":false,"types":[]},{"text":"impl Debug for SimpleTreeNode","synthetic":false,"types":[]}];
+implementors["leetcode"] = [{"text":"impl&lt;'s&gt; Debug for Walker&lt;'s&gt;","synthetic":false,"types":[]},{"text":"impl Debug for Pat","synthetic":false,"types":[]},{"text":"impl&lt;'s&gt; Debug for Walker&lt;'s&gt;","synthetic":false,"types":[]},{"text":"impl Debug for TreeNode","synthetic":false,"types":[]},{"text":"impl Debug for SimpleTreeNode","synthetic":false,"types":[]}];
 if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()

@@ -42,23 +42,23 @@
 <span id="41">41</span>
 <span id="42">42</span>
 </pre><div class="example-wrap"><pre class="rust ">
-<span class="doccomment">//! # How Many Numbers Are Smaller Than the Current Number</span>
-<span class="doccomment">//!</span>
-<span class="doccomment">//! [![src]][srcurl] [![Tests]][testsurl] [![Doc]][docurl] [![Problem]][problemurl]</span>
-<span class="doccomment">//!</span>
-<span class="doccomment">//! [src]: https://img.shields.io/badge/source-swfsql/leetcode-8DA0CB?style=for-the-badge&amp;labelColor=555555&amp;logo=github</span>
-<span class="doccomment">//! [srcurl]: https://github.com/swfsql/leetcode/blob/master/src/_1365_how_many_numbers_are_smaller_than_the_current_number.rs</span>
-<span class="doccomment">//! [Tests]: https://img.shields.io/badge/tests-555555?style=for-the-badge&amp;labelColor=555555&amp;logoColor=white</span>
-<span class="doccomment">//! [testsurl]: https://github.com/swfsql/leetcode/blob/master/tests/_1365_how_many_numbers_are_smaller_than_the_current_number.rs</span>
-<span class="doccomment">//! [doc]: https://img.shields.io/badge/docs-555555?style=for-the-badge&amp;labelColor=555555&amp;logoColor=white</span>
-<span class="doccomment">//! [docurl]: https://swfsql.github.io/leetcode/doc/leetcode/_1365_how_many_numbers_are_smaller_than_the_current_number/index.html</span>
-<span class="doccomment">//! [Problem]: https://img.shields.io/badge/problem-555555?style=for-the-badge&amp;labelColor=555555&amp;logoColor=white</span>
-<span class="doccomment">//! [problemurl]: https://leetcode.com/problems/how-many-numbers-are-smaller-than-the-current-number/</span>
+<span class="doccomment">//! # How Many Numbers Are Smaller Than the Current Number</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! [![src]][srcurl] [![Tests]][testsurl] [![Doc]][docurl] [![Problem]][problemurl]</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! [src]: https://img.shields.io/badge/source-swfsql/leetcode-8DA0CB?style=for-the-badge&amp;labelColor=555555&amp;logo=github</span>
+<span class="doccomment">//! [srcurl]: https://github.com/swfsql/leetcode/blob/master/src/_1365_how_many_numbers_are_smaller_than_the_current_number.rs</span>
+<span class="doccomment">//! [Tests]: https://img.shields.io/badge/tests-555555?style=for-the-badge&amp;labelColor=555555&amp;logoColor=white</span>
+<span class="doccomment">//! [testsurl]: https://github.com/swfsql/leetcode/blob/master/tests/_1365_how_many_numbers_are_smaller_than_the_current_number.rs</span>
+<span class="doccomment">//! [doc]: https://img.shields.io/badge/docs-555555?style=for-the-badge&amp;labelColor=555555&amp;logoColor=white</span>
+<span class="doccomment">//! [docurl]: https://swfsql.github.io/leetcode/doc/leetcode/_1365_how_many_numbers_are_smaller_than_the_current_number/index.html</span>
+<span class="doccomment">//! [Problem]: https://img.shields.io/badge/problem-555555?style=for-the-badge&amp;labelColor=555555&amp;logoColor=white</span>
+<span class="doccomment">//! [problemurl]: https://leetcode.com/problems/how-many-numbers-are-smaller-than-the-current-number/</span>
 
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Solution</span>;
 
 <span class="kw">impl</span> <span class="ident">Solution</span> {
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">smaller_numbers_than_current</span>(<span class="ident">nums</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">i32</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">i32</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">smaller_numbers_than_current</span>(<span class="ident">nums</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">i32</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">i32</span><span class="op">&gt;</span> {
         <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">convert</span>::<span class="ident">TryInto</span>;
         <span class="ident">_smaller_numbers_than_current</span>(<span class="ident">nums</span>.<span class="ident">into_iter</span>().<span class="ident">map</span>(<span class="op">|</span><span class="ident">n</span><span class="op">|</span> <span class="ident">n</span>.<span class="ident">try_into</span>().<span class="ident">unwrap</span>()).<span class="ident">collect</span>())
             .<span class="ident">map</span>(<span class="ident">Into</span>::<span class="ident">into</span>)
@@ -66,15 +66,15 @@
     }
 }
 
-<span class="comment">// 0 &lt;= nums[i] &lt;= 100</span>
-<span class="comment">// 2 &lt;= nums.len() &lt;= 500</span>
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">_smaller_numbers_than_current</span>(<span class="ident">nums</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="kw">impl</span> <span class="ident">Iterator</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> <span class="ident">u16</span><span class="op">&gt;</span> {
+<span class="comment">// 0 &lt;= nums[i] &lt;= 100</span>
+<span class="comment">// 2 &lt;= nums.len() &lt;= 500</span>
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">_smaller_numbers_than_current</span>(<span class="ident">nums</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw">impl</span> <span class="ident">Iterator</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> <span class="ident">u16</span><span class="op">&gt;</span> {
     <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">collections</span>::<span class="ident">HashMap</span>;
-    <span class="comment">// sorts</span>
+    <span class="comment">// sorts</span>
     <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">sorted</span> <span class="op">=</span> <span class="ident">nums</span>.<span class="ident">clone</span>();
     <span class="ident">sorted</span>.<span class="ident">sort_unstable</span>();
-    <span class="comment">// creates a map of a value into it&#39;s index position</span>
-    <span class="comment">// (when it first appeared in the sorted nums)</span>
+    <span class="comment">// creates a map of a value into it&#39;s index position</span>
+    <span class="comment">// (when it first appeared in the sorted nums)</span>
     <span class="kw">let</span> <span class="ident">map</span> <span class="op">=</span> <span class="ident">sorted</span>.<span class="ident">into_iter</span>().<span class="ident">enumerate</span>().<span class="ident">fold</span>(
         <span class="ident">HashMap</span>::<span class="op">&lt;</span><span class="ident">u8</span>, <span class="ident">u16</span><span class="op">&gt;</span>::<span class="ident">new</span>(),
         <span class="op">|</span><span class="kw-2">mut</span> <span class="ident">acc</span>, (<span class="ident">index</span>, <span class="ident">value</span>)<span class="op">|</span> {

@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["_is_match","Idiomatic entry point."]],"struct":[["Solution",""],["Walker","Walker that intends to walk over `chars` and `pats`. See it's `Iterator` impl for more info."]]});

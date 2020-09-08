@@ -60,30 +60,30 @@
 <span id="59">59</span>
 <span id="60">60</span>
 </pre><div class="example-wrap"><pre class="rust ">
-<span class="doccomment">//! # Group the People Given the Group Size They Belong To</span>
-<span class="doccomment">//!</span>
-<span class="doccomment">//! [![src]][srcurl] [![Tests]][testsurl] [![Doc]][docurl] [![Problem]][problemurl]</span>
-<span class="doccomment">//!</span>
-<span class="doccomment">//! [src]: https://img.shields.io/badge/source-swfsql/leetcode-8DA0CB?style=for-the-badge&amp;labelColor=555555&amp;logo=github</span>
-<span class="doccomment">//! [srcurl]: https://github.com/swfsql/leetcode/blob/master/src/_1282_group_the_people_given_the_group_size_they_belong_to.rs</span>
-<span class="doccomment">//! [Tests]: https://img.shields.io/badge/tests-555555?style=for-the-badge&amp;labelColor=555555&amp;logoColor=white</span>
-<span class="doccomment">//! [testsurl]: https://github.com/swfsql/leetcode/blob/master/tests/_1282_group_the_people_given_the_group_size_they_belong_to.rs</span>
-<span class="doccomment">//! [doc]: https://img.shields.io/badge/docs-555555?style=for-the-badge&amp;labelColor=555555&amp;logoColor=white</span>
-<span class="doccomment">//! [docurl]: https://swfsql.github.io/leetcode/doc/leetcode/_1282_group_the_people_given_the_group_size_they_belong_to/index.html</span>
-<span class="doccomment">//! [Problem]: https://img.shields.io/badge/problem-555555?style=for-the-badge&amp;labelColor=555555&amp;logoColor=white</span>
-<span class="doccomment">//! [problemurl]: https://leetcode.com/problems/group-the-people-given-the-group-size-they-belong-to/</span>
-<span class="doccomment">//!</span>
-<span class="doccomment">//! ## Constraints</span>
-<span class="doccomment">//!</span>
-<span class="doccomment">//! - groupSizes.length == n</span>
-<span class="doccomment">//! - 1 &lt;= n &lt;= 500</span>
-<span class="doccomment">//! - 1 &lt;= groupSizes[i] &lt;= n</span>
-<span class="doccomment">//!</span>
+<span class="doccomment">//! # Group the People Given the Group Size They Belong To</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! [![src]][srcurl] [![Tests]][testsurl] [![Doc]][docurl] [![Problem]][problemurl]</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! [src]: https://img.shields.io/badge/source-swfsql/leetcode-8DA0CB?style=for-the-badge&amp;labelColor=555555&amp;logo=github</span>
+<span class="doccomment">//! [srcurl]: https://github.com/swfsql/leetcode/blob/master/src/_1282_group_the_people_given_the_group_size_they_belong_to.rs</span>
+<span class="doccomment">//! [Tests]: https://img.shields.io/badge/tests-555555?style=for-the-badge&amp;labelColor=555555&amp;logoColor=white</span>
+<span class="doccomment">//! [testsurl]: https://github.com/swfsql/leetcode/blob/master/tests/_1282_group_the_people_given_the_group_size_they_belong_to.rs</span>
+<span class="doccomment">//! [doc]: https://img.shields.io/badge/docs-555555?style=for-the-badge&amp;labelColor=555555&amp;logoColor=white</span>
+<span class="doccomment">//! [docurl]: https://swfsql.github.io/leetcode/doc/leetcode/_1282_group_the_people_given_the_group_size_they_belong_to/index.html</span>
+<span class="doccomment">//! [Problem]: https://img.shields.io/badge/problem-555555?style=for-the-badge&amp;labelColor=555555&amp;logoColor=white</span>
+<span class="doccomment">//! [problemurl]: https://leetcode.com/problems/group-the-people-given-the-group-size-they-belong-to/</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! ## Constraints</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! - groupSizes.length == n</span>
+<span class="doccomment">//! - 1 &lt;= n &lt;= 500</span>
+<span class="doccomment">//! - 1 &lt;= groupSizes[i] &lt;= n</span>
+<span class="doccomment">//!</span>
 
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Solution</span>;
 
 <span class="kw">impl</span> <span class="ident">Solution</span> {
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">group_the_people</span>(<span class="ident">group_sizes</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">i32</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">i32</span><span class="op">&gt;&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">group_the_people</span>(<span class="ident">group_sizes</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">i32</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">i32</span><span class="op">&gt;</span><span class="op">&gt;</span> {
         <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">convert</span>::<span class="ident">TryFrom</span>;
         <span class="ident">_group_the_people</span>(
             <span class="ident">group_sizes</span>
@@ -93,16 +93,16 @@
         .<span class="ident">map</span>(<span class="op">|</span><span class="ident">g</span><span class="op">|</span> {
             <span class="ident">g</span>.<span class="ident">into_iter</span>()
                 .<span class="ident">map</span>(<span class="op">|</span><span class="ident">id</span><span class="op">|</span> <span class="ident">i32</span>::<span class="ident">try_from</span>(<span class="ident">id</span>).<span class="ident">unwrap</span>())
-                .<span class="ident">collect</span>::<span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;&gt;</span>()
+                .<span class="ident">collect</span>::<span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;</span><span class="op">&gt;</span>()
         })
         .<span class="ident">collect</span>()
     }
 }
 
-<span class="doccomment">/// Idiomatic entry point.</span>
+<span class="doccomment">/// Idiomatic entry point.</span>
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">_group_the_people</span>(
     <span class="ident">group_sizes</span>: <span class="kw">impl</span> <span class="ident">Iterator</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> <span class="ident">u16</span><span class="op">&gt;</span>,
-) <span class="op">-&gt;</span> <span class="kw">impl</span> <span class="ident">Iterator</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">usize</span><span class="op">&gt;&gt;</span> {
+) <span class="op">-</span><span class="op">&gt;</span> <span class="kw">impl</span> <span class="ident">Iterator</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">usize</span><span class="op">&gt;</span><span class="op">&gt;</span> {
     <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">collections</span>::<span class="ident">HashMap</span>;
     <span class="kw">let</span> <span class="ident">groups</span> <span class="op">=</span> <span class="ident">group_sizes</span>
         .<span class="ident">enumerate</span>()
@@ -117,7 +117,7 @@
         .<span class="ident">flat_map</span>(<span class="op">|</span>(<span class="ident">group_size</span>, <span class="ident">ids</span>): (<span class="ident">usize</span>, <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">usize</span><span class="op">&gt;</span>)<span class="op">|</span> {
             <span class="ident">ids</span>.<span class="ident">chunks_exact</span>(<span class="ident">group_size</span>)
                 .<span class="ident">map</span>(<span class="op">|</span><span class="ident">_ids</span><span class="op">|</span> <span class="ident">_ids</span>.<span class="ident">to_vec</span>())
-                .<span class="ident">collect</span>::<span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;&gt;</span><span class="op">&gt;</span>()
+                .<span class="ident">collect</span>::<span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span>()
         })
 }
 </pre></div>

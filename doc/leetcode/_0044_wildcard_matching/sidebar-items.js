@@ -1,1 +1,1 @@
-initSidebarItems({"fn":[["_is_match","Idiomatic entry point."]],"struct":[["Solution",""],["Walker",""]]});
+initSidebarItems({"enum":[["Pat","Represent all patterns."]],"fn":[["_is_match","Idiomatic entry point."]],"struct":[["Solution",""],["Walker",""]]});

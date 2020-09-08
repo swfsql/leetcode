@@ -72,23 +72,23 @@
 <span id="71">71</span>
 <span id="72">72</span>
 </pre><div class="example-wrap"><pre class="rust ">
-<span class="doccomment">//! # Max Increase to Keep City Skyline</span>
-<span class="doccomment">//!</span>
-<span class="doccomment">//! [![src]][srcurl] [![Tests]][testsurl] [![Doc]][docurl] [![Problem]][problemurl]</span>
-<span class="doccomment">//!</span>
-<span class="doccomment">//! [src]: https://img.shields.io/badge/source-swfsql/leetcode-8DA0CB?style=for-the-badge&amp;labelColor=555555&amp;logo=github</span>
-<span class="doccomment">//! [srcurl]: https://github.com/swfsql/leetcode/blob/master/src/_0807_max_increase_to_keep_city_skyline.rs</span>
-<span class="doccomment">//! [Tests]: https://img.shields.io/badge/tests-555555?style=for-the-badge&amp;labelColor=555555&amp;logoColor=white</span>
-<span class="doccomment">//! [testsurl]: https://github.com/swfsql/leetcode/blob/master/tests/_0807_max_increase_to_keep_city_skyline.rs</span>
-<span class="doccomment">//! [doc]: https://img.shields.io/badge/docs-555555?style=for-the-badge&amp;labelColor=555555&amp;logoColor=white</span>
-<span class="doccomment">//! [docurl]: https://swfsql.github.io/leetcode/doc/leetcode/_0807_max_increase_to_keep_city_skyline/index.html</span>
-<span class="doccomment">//! [Problem]: https://img.shields.io/badge/problem-555555?style=for-the-badge&amp;labelColor=555555&amp;logoColor=white</span>
-<span class="doccomment">//! [problemurl]: https://leetcode.com/problems/max-increase-to-keep-city-skyline/</span>
+<span class="doccomment">//! # Max Increase to Keep City Skyline</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! [![src]][srcurl] [![Tests]][testsurl] [![Doc]][docurl] [![Problem]][problemurl]</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! [src]: https://img.shields.io/badge/source-swfsql/leetcode-8DA0CB?style=for-the-badge&amp;labelColor=555555&amp;logo=github</span>
+<span class="doccomment">//! [srcurl]: https://github.com/swfsql/leetcode/blob/master/src/_0807_max_increase_to_keep_city_skyline.rs</span>
+<span class="doccomment">//! [Tests]: https://img.shields.io/badge/tests-555555?style=for-the-badge&amp;labelColor=555555&amp;logoColor=white</span>
+<span class="doccomment">//! [testsurl]: https://github.com/swfsql/leetcode/blob/master/tests/_0807_max_increase_to_keep_city_skyline.rs</span>
+<span class="doccomment">//! [doc]: https://img.shields.io/badge/docs-555555?style=for-the-badge&amp;labelColor=555555&amp;logoColor=white</span>
+<span class="doccomment">//! [docurl]: https://swfsql.github.io/leetcode/doc/leetcode/_0807_max_increase_to_keep_city_skyline/index.html</span>
+<span class="doccomment">//! [Problem]: https://img.shields.io/badge/problem-555555?style=for-the-badge&amp;labelColor=555555&amp;logoColor=white</span>
+<span class="doccomment">//! [problemurl]: https://leetcode.com/problems/max-increase-to-keep-city-skyline/</span>
 
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Solution</span>;
 
 <span class="kw">impl</span> <span class="ident">Solution</span> {
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">max_increase_keeping_skyline</span>(<span class="ident">grid</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">i32</span><span class="op">&gt;&gt;</span>) <span class="op">-&gt;</span> <span class="ident">i32</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">max_increase_keeping_skyline</span>(<span class="ident">grid</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">i32</span><span class="op">&gt;</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">i32</span> {
         <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">convert</span>::<span class="ident">TryInto</span>;
         <span class="ident">_max_increase_keeping_skyline</span>(
             <span class="ident">grid</span>.<span class="ident">into_iter</span>()
@@ -100,44 +100,44 @@
     }
 }
 
-<span class="doccomment">/// Idiomatic entry point.</span>
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">_max_increase_keeping_skyline</span>(<span class="ident">grid</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;&gt;</span>) <span class="op">-&gt;</span> <span class="ident">usize</span> {
-    <span class="comment">// get horizontal and vertical projections</span>
+<span class="doccomment">/// Idiomatic entry point.</span>
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">_max_increase_keeping_skyline</span>(<span class="ident">grid</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">usize</span> {
+    <span class="comment">// get horizontal and vertical projections</span>
 
-    <span class="comment">// horizontal projection</span>
+    <span class="comment">// horizontal projection</span>
     <span class="kw">let</span> <span class="ident">hor</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">grid</span>
         .<span class="ident">iter</span>()
         .<span class="ident">map</span>(<span class="op">|</span><span class="ident">row</span><span class="op">|</span> <span class="ident">row</span>.<span class="ident">iter</span>().<span class="ident">max</span>().<span class="ident">unwrap</span>())
         .<span class="ident">cloned</span>()
         .<span class="ident">collect</span>();
 
-    <span class="comment">// vertical projection</span>
+    <span class="comment">// vertical projection</span>
     <span class="kw">let</span> <span class="ident">ver</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">grid</span>.<span class="ident">iter</span>().<span class="ident">fold</span>(<span class="macro">vec</span><span class="macro">!</span>[<span class="number">0</span>; <span class="ident">grid</span>.<span class="ident">len</span>()], <span class="op">|</span><span class="kw-2">mut</span> <span class="ident">acc</span>, <span class="ident">row</span><span class="op">|</span> {
         (<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">acc</span>)
             .<span class="ident">into_iter</span>()
             .<span class="ident">zip</span>(<span class="ident">row</span>)
             .<span class="ident">map</span>(<span class="op">|</span>(<span class="ident">a</span>, <span class="ident">b</span>)<span class="op">|</span> <span class="kw-2">*</span><span class="ident">a</span> <span class="op">=</span> <span class="ident">std</span>::<span class="ident">cmp</span>::<span class="ident">max</span>(<span class="kw-2">*</span><span class="ident">a</span>, <span class="kw-2">*</span><span class="ident">b</span>))
-            .<span class="ident">for_each</span>(<span class="ident">drop</span>); <span class="comment">// drops ()</span>
+            .<span class="ident">for_each</span>(<span class="ident">drop</span>); <span class="comment">// drops ()</span>
         <span class="ident">acc</span>
     });
 
-    <span class="comment">// for each cell[i][j],</span>
-    <span class="comment">// takes the minimum between</span>
-    <span class="comment">// hor[i] and ver[j]</span>
-    <span class="comment">//</span>
-    <span class="comment">// for each row</span>
+    <span class="comment">// for each cell[i][j],</span>
+    <span class="comment">// takes the minimum between</span>
+    <span class="comment">// hor[i] and ver[j]</span>
+    <span class="comment">//</span>
+    <span class="comment">// for each row</span>
     <span class="ident">hor</span>.<span class="ident">into_iter</span>()
-        <span class="comment">// calculate the sum for such row</span>
+        <span class="comment">// calculate the sum for such row</span>
         .<span class="ident">map</span>(<span class="op">|</span><span class="ident">row_max</span><span class="op">|</span>
-            <span class="comment">// for each column</span>
+            <span class="comment">// for each column</span>
             <span class="ident">ver</span>.<span class="ident">iter</span>()
                 .<span class="ident">map</span>(<span class="op">|</span><span class="ident">col_max</span><span class="op">|</span> <span class="ident">std</span>::<span class="ident">cmp</span>::<span class="ident">min</span>(<span class="ident">row_max</span>, <span class="kw-2">*</span><span class="ident">col_max</span>))
                 .<span class="ident">map</span>(<span class="ident">usize</span>::<span class="ident">from</span>)
                 .<span class="ident">sum</span>::<span class="op">&lt;</span><span class="ident">usize</span><span class="op">&gt;</span>()
         )
-        <span class="comment">// then sums from such row</span>
+        <span class="comment">// then sums from such row</span>
         .<span class="ident">sum</span>::<span class="op">&lt;</span><span class="ident">usize</span><span class="op">&gt;</span>()
-    <span class="comment">// then gets subtracted from the original grid total size </span>
+    <span class="comment">// then gets subtracted from the original grid total size </span>
     <span class="op">-</span> <span class="ident">grid</span>.<span class="ident">into_iter</span>()
         .<span class="ident">map</span>(<span class="op">|</span><span class="ident">row</span><span class="op">|</span> <span class="ident">row</span>.<span class="ident">into_iter</span>()
             .<span class="ident">map</span>(<span class="ident">usize</span>::<span class="ident">from</span>)
