@@ -51,7 +51,7 @@ impl Solution {
         let mut v = vec![1u32; m as usize];
         // for each row..
         for _ in 1..n {
-            // `prev` is the "next prev ancestor"
+            // `prev` is the "next left ancestor"
             let mut prev: u32 = 0;
             // for each column..
             for top_ancestor in v.iter_mut() {
