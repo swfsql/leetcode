@@ -156,70 +156,71 @@ impl<'s> Iterator for Walker<'s> {
             }
         };
         
-        let mut next_good = vec![false; self.pats.len() + 1];
+        // safe boundcheck as it's guaranteed to have at least
+        // one element
+        let mut north= {
+            let previous = self.last_good[0];
+            self.last_good[0] = false;
+            previous
+        };
+        let mut west = false;
+        let mut north_west;
+        for (north_east, p) in self.last_good.iter_mut().skip(1).zip(self.pats) {
+            // drives to the east
+            north_west = north; // north is east from north_west
+            north = *north_east; // north_east is east from north
 
-        for (j, p) in self.pats.iter().enumerate() {
-            next_good[j + 1] = match p {
+            // curr is at east from west
+            // curr south from the north,
+            // and will be the north in the next iteration
+            let curr = north_east;
+            *curr = match p {
                 // `[a-z]` or `.` not followed by `*`/`+`/`?`.
                 // Matches a *single* `Char`.
                 Pat::Linear(cc) => {
-                    // must advance the string slice (i-wise 
-                    // - last_good[j] -> next_good[_]),
-                    //
-                    // and also itself - the pattern slice
-                    // (j-wise - _[j] -> next_good[j+1]),
-                    //
+                    // must move south (consume the string slice)
+                    // and also east (consume itself),
                     // and also match the character.
-                    //
-                    self.last_good[j] && cc == c
+                    north_west && cc == c
                 }
 
                 // `?`.
                 // Matches *none* or a *single* `Char`.
                 Pat::Affine(cc) => {
-                    // must advance the string slice (i-wise 
-                    // - last_good[j] -> next_good[_])
-                    // and also match the character.
-                    //
-                    // or advance itself - the pattern slice
-                    // (j-wise - next_good[j] -> next_good[j+1]),
-                    // while ignoring the character.
-                    //
-                    self.last_good[j] && cc == c || next_good[j] 
+                    // must move south (consume the string slice)
+                    // and match the char,
+                    // or move east (consume itself)
+                    // while ignoring the char
+                    north_west && cc == c || west 
                 }
 
                 // `+`.
                 // Matches a *single* or *many* times a `Char`.
                 Pat::Relevant(cc) => {
-                    // must advance the string slice (i-wise 
-                    // - last_good[j] -> next_good[_],
-                    // or last_good[j+1] -> next_good[_]),
-                    // and also match the character.
-                    //
-                    (self.last_good[j] || self.last_good[j + 1]) && cc == c
+                    // must move south (ignore the string slice)
+                    // and optionaly move east 
+                    // (optionaly ignore itself),
+                    // while also matching the character
+                    (north_west || north) && cc == c
                 }
                 
                 // `*`.
                 // Matches *none* or a *single* or *many* times a `Char`.
                 Pat::Normal(cc) => {
-                    // must advance the string slice (i-wise 
-                    // - last_good[j+1] -> next_good[_])
-                    // and also match the character.
-                    //
-                    // or advance itself - the pattern slice
-                    // (j-wise - next_good[j] -> next_good[j+1]),
+                    // must move south (consume the string slice)
+                    // and also match the character,
+                    // or move east (ignore itself)
                     // while ignoring the character.
-                    //
-                    self.last_good[j + 1] && cc == c || next_good[j] 
+                    north && cc == c || west 
                 }
             };
-        }
 
-        // moves the string (i-wise) forward
+            // drives to the east
+            west = *curr; // curr is east from west
+        };
+
+        // moves the string (i-wise / east-wise) forward
         self.chars = &self.chars[1..];
-        // forgets the last_good,
-        // and only remembers next_good
-        self.last_good = next_good;
 
         // if string has been consumed
         if self.chars.len() == 0 {
